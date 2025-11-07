@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Koleksi Game</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+    /* Tambahkan di CSS */
+.content {
+  margin-top: 150px; /* geser konten ke bawah, sesuaikan tinggi topbar + scroll menu */
+  padding: 20px;
+}
+        /* TOPBAR */
+    .topbar {
+      background: #222;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 19px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+    .menu-icon {
+      font-size: 40px;
+      cursor: pointer;
+      background: red;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: white;
+    }
+    .logo {height: 50px;}
+
+    /* NAVBAR SCROLL */
+    .scroll-menu {
+      position: fixed;
+      top: 82px;
+      left: 0;
+      right: 0;
+      background: #333;
+      white-space: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      z-index: 999;
+    }
+    .scroll-menu::-webkit-scrollbar {display: none;}
+    .scroll-menu a {
+      display: inline-block;
+      padding: 14px 18px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      transition: background 0.25s ease, transform 0.2s ease;
+    }
+    .scroll-menu a:hover {
+      background: red;
+      color: #111;
+      transform: scale(1.05);
+      border-radius: 6px;
+    }
+        /* SIDEBAR */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 1999;
+      display: none;
+    }
+    .overlay.active {display: block;}
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 90%;
+      max-width: 380px;
+      height: 100%;
+      background: #2a2a2a;
+      transition: left 0.35s ease;
+      z-index: 2000;
+      overflow-y: auto;
+      padding-bottom: 30px;
+    }
+    .sidebar.active {left: 0;}
+    .sidebar-header {
+      background: #1f1f1f;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .sidebar-header img {height: 40px;}
+    .close-btn {font-size: 38px; cursor: pointer; color: #fff;}
+    .sidebar .guide {
+      background: #3a3a3a;
+      padding: 12px;
+      font-size: 16px;
+      border-bottom: 1px solid #444;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sidebar .guide i {color: red;}
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 16px;
+    }
+    .menu-item {
+      background: #3a3a3a;
+      border-radius: 8px;
+      padding: 20px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 15px;
+      transition: transform 0.2s ease, background 0.2s ease;
+      text-decoration: none;
+      color: #fff;
+    }
+    .menu-item i {font-size: 26px;}
+    .menu-item:hover {transform: scale(1.05); background: #505050;}
+    .menu-item.whatsapp i {color: #25D366;}
+    .menu-item.telegram i {color: #229ED9;}
+    .menu-item.rtp i {color: #ff3b30;}
+    .menu-item.turnamen i {color: gold;}
+
+    /* KONTEN DEMO */
+    .content {
+      margin-top: 20px;
+      padding: 20px;
+    }
+
+    /* NOTIFICATION */
+    .notification-container {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 3000;
+    }
+    .notification {
+      background: #e63946;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 6px;
+      font-size: 15px;
+      min-width: 240px;
+      max-width: 320px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      opacity: 0;
+      transform: translateX(100%);
+      animation: slideIn 0.3s forwards;
+    }
+    @keyframes slideIn {
+      to {opacity: 1; transform: translateX(0);}
+    }
+    @keyframes slideOut {
+      to {opacity: 0; transform: translateX(100%);}
+    }
+    
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #search {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      border: none;
+    }
+    
+    .game-grid {
+      
+      margin-bottom: 50px;
+      
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* 3 kolom */
+      gap: 15px;
+    }
+    .card {
+      background: #222;
+      border-radius: 10px;
+      overflow: hidden;
+      text-align: center;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      background: #333;
+    }
+    .card img {
+      width: 100%;
+      height:  100px;
+      object-fit: cover;
+    }
+    .card p {
+      padding: 10px;
+      margin: 0;
+      background: #333;
+      font-weight: bold;
+    }
+    
+        .navbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to right, red, gold, red);
+      display: flex;
+      justify-content: space-around;
+      padding: 15px 0;
+      z-index: 1000;
+    }
+
+    .nav-item {
+      text-align: center;
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .nav-item i {
+      font-size: 24px;
+      display: block;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+    <!-- TOPBAR -->
+  <div class="topbar">
+    <i class="fas fa-bars menu-icon" onclick="toggleSidebar()"></i>
+    <img src="logo.png" alt="Logo" class="logo">
+    <div style="width:40px"></div>
+  </div>
+
+  <!-- NAVBAR SCROLL -->
+    <div class="scroll-menu">
+    <a href="sports.html">Sports</a>
+    <a href="poker.html">Poker</a>
+    <a href="casino.html">Casino</a>
+    <a href="togel.html">Togel</a>
+    <a href="slot.html">Slot</a>
+    <a href="fishing.html">Fishing</a>
+    <a href="crash.html">New Crash</a>
+
+    <a href="sabung Ayam.html">Sabung Ayam</a>
+  </div>
+  
+  
+  
+<!-- Konten -->
+<div class="content">
+  <h1>Daftar Game</h1>
+  <input type="text" id="search" placeholder="Cari game...">
+
+  <div class="grid" id="gameGrid">
+    <!-- card game di sini -->
+    
+        <!-- Contoh kotak game, silakan copy-paste sampai 80 -->
+    <div class="card" onclick="location.href='https://m.wkvytxcg8.com/65/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=10cdkdsm%3Dgufidhmq8%3Dmyw&__hv=2fMEYCIQCeCnn%2BvIP2ZvOvJieKETX%2BLUXEn7g870nJBzSjCegQ7gIhAKLvla3Pb3Uimt2ljchKV3zNn8AHkz1J3oA%2BAH8%2Bti0H'">
+      <img src="1.jpg" alt="Game 1">
+      <p>Mahjong Ways 1</p>
+    </div>
+
+    <div class="card" onclick="location.href='https://m.wkvytxcg8.com/74/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=03vwdwlf%3Dznybwafj8%3Dfrp&__hv=2fMEYCIQCeCnn%2BvIP2ZvOvJieKETX%2BLUXEn7g870nJBzSjCegQ7gIhAKLvla3Pb3Uimt2ljchKV3zNn8AHkz1J3oA%2BAH8%2Bti0H'">
+      <img src="2.jpg" alt="Game 2">
+      <p>Mahjong Ways 2</p>
+    </div>
+
+    <div class="card" onclick="location.href='https://m.wkvytxcg8.com/135/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=10cdkdsm%3Dgufidhmq8%3Dmyw&__hv=2fMEYCIQCeCnn%2BvIP2ZvOvJieKETX%2BLUXEn7g870nJBzSjCegQ7gIhAKLvla3Pb3Uimt2ljchKV3zNn8AHkz1J3oA%2BAH8%2Bti0H'">
+      <img src="3.jpg" alt="Game 3">
+      <p>Wild Bounty..</p>
+    </div>
+
+    <div class="card" onclick="location.href='h549566d7e53485f100d95a58f67870b02d280ebafe980ce2711247cc37ee2d010700e1b3a7b3e143d0f5f0a6f8885c5f10a99bc8f9d7a65c206a5819c5b916e48425f7ba1eb154ea9ff2d482e5da30218f70c3bea7708ecae9e2a68a5ed6d8eb20c47dbde61b999d94759d16bb0ce3a61d79046758221bb9191d368d6bf7caf9ea269032c111bfde7b49858716c4725ab1b05278a17ab3176c98a3d3249f7a76d014a8924bb86ad5d12d0af1374ff5b2aecef8364272ba4cdf99dc8e02c86b7b9f9f664f6404e510a7040da8277f2efa9ae84dfe9acefaf085d8b6a33255e458d3e51eb06a8bf6ed199080ad7d15debdd82f2cbba9ca5a8242acea9c8248a3dd941efe80589f675e080145a4f0d112d3d4966d1283375cd067f234ed6b1a956204c9b78eecc7897a1fdf3890875be4c77f8afdbe61ebdd0e817d3ad8200cc3a377ef0c8e9f4ed93f4aab5afe4fe46250ef090d201a7343913fa98d0731b2eaa37dde3475e366a1b9cf50b5a9a357b5b22691198c2555ab4d38a8d371cce8766ff9658dc27b7d3bd1be509c29cd5ea812d9a3434562f5ade795a6e13c235b745dc958e168b69e292ed2342459bf5e933b98d5cfa05bb018af4565edd7b041b4df0a18987348c91e14f32232627d1370a10064ce876959a218af14b0d8c43d8abec5e15862f37402998b642ca2946a544313a7ae19e3281b7751da734ad6334812bea939d4533a54629397b271503de33c8d643a25d74c238cae7919e128879b97ae2c628ae95dc67e97a560bfe9376a3cad9f6e9a3036fc54a84c0f3a1d9e61eff86881f733465879481eb655fadbd21c1a4416d9a81318376629cca93d191f34e19d2c9bfcfec44ac12ca0b1b1a19a1e5d6888198a3a32b775b83d75af413240ef5c25f521121d4d6ea98580bd90f0dcc2031d68381c64977898e425e1dabbdff1745250c23b4132e8f1234c01a0378e51ae008679d02f8c2c5655c234ce338f686f6f98dc3c56965e229dd3b98d44ba28d1852fcf8e7ebb23830e9d6977f46a35d7bd80f1761b7b7b43236e3b41e265e03417cfced091ba227c374c2d5814337a9fe48a7a16e9dd6cde182e8ddb425610174e759ffedcb268a8210d29985c4560da63b53803855339cba0b5cc750a6afeba92216f12fd40978b29cc9734335f14336903beb06cf641d281be07ed88c57530352af76c6f672926c32084d1ab3e0fedd3fb5d2b69f9e94fe456b7f84325c4211bd658561ae8a96a3963ee056ae1bf13d28ae4f3fd0ed03d48ae4261c5d4732c4ba147b701f34ded07993cc15f27d5dd7011a49dc6a01f93a9e88cd9337e0cd1618c23aad4cddb53d927a6873a0f870dfb6bb20de7b94c28da0640208d5d8316db1b53575d34efd7fe485287400b589964c412ce20a89a94e4e82e0d50b29dcd156ed4a1c77e7d88dbfa24d06d92e920ec73cf679ce87c7380f6b20cbf8a68d50f40faa373c767d3ee036754bcda3d17a89172eb7a30c721533df639dff480e14e879ceaf05d952240e63afc2af6eda2f0c8cfb8a34d351874180593fe5eb2ab41b8165e51106aeef73cbcd5a6cca873f8e2277a811c454d4d0caf3345fe5ed081d4e0b359e671934b67bcf616031909436290d4d5deb1059e1b9fb1ec22bc5f4e044b5d725c0847'">
+      <img src="4.jpg" alt="Game 1">
+      <p>Jurassic Kingdom</p>
+    </div>
+
+    <div class="card" onclick="location.href='https://m.wkvytxcg8.com/104/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=01tubujd%3Dxlwzuydh8%3Ddpn&__hv=2fMEQCIGvFTa9eA%2Bbz8Yl1Q9qUWhLMHqO98b8NgMJevu0OsGPoAiBze7%2BF89apkAAIhSOcPvMpTkdBNp%2B0kGjPkzC1EL7xXA%3D%3D'">
+      <img src="5.jpg" alt="Game 2">
+      <p>Wild Bandito</p>
+    </div>
+
+    <div class="card" onclick="location.href='https://m.wkvytxcg8.com/87/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=18klslau%3Docnqlpuy8%3Duge&__hv=2fMEYCIQCeCnn%2BvIP2ZvOvJieKETX%2BLUXEn7g870nJBzSjCegQ7gIhAKLvla3Pb3Uimt2ljchKV3zNn8AHkz1J3oA%2BAH8%2Bti0H'">
+      <img src="6.jpg" alt="Game 3">
+      <p>Treasure Of...</p>
+    </div>
+    
+        <div class="card" onclick="location.href='game1.html'">
+      <img src="7.jpg" alt="Game 1">
+      <p>Queen Bounty</p>
+    </div>
+
+    <div class="card" onclick="location.href='game2.html'">
+      <img src="8.jpg" alt="Game 2">
+      <p>Lucky Neko</p>
+    </div>
+
+    <div class="card" onclick="location.href='game3.html'">
+      <img src="9.jpg" alt="Game 3">
+      <p>Captain's B...</p>
+    </div>
+    
+        <div class="card" onclick="location.href='game1.html'">
+      <img src="10.jpg" alt="Game 1">
+      <p>Leprechaun...</p>
+    </div>
+
+    <div class="card" onclick="location.href='game2.html'">
+      <img src="11.jpg" alt="Game 2">
+      <p>Dines Fre...</p>
+    </div>
+
+    <div class="card" onclick="location.href='game3.html'">
+      <img src="12.jpg" alt="Game 3">
+      <p>Deadman's...</p>
+    </div>
+    
+        <div class="card" onclick="location.href='game1.html'">
+      <img src="13.jpg" alt="Game 1">
+      <p>Grafiti Rush</p>
+    </div>
+
+
+
+    <div class="card" onclick="location.href='https://m.nkryu17dc.com/1834850/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=25rszshb%3Du2jxt1jiq%3Dbnl&__hv=2fMEYCIQC0CljPmUbOweXmWyG75MiufJaeXR69x9WGje2udpFEowIhALXhLSsljQriNxAmgyHVFrZ6Gc%2F5VNXR9WYRzZzlo%2F6A'">
+      <img src="14.jpg" alt="Game 3">
+      <p>Jack Of Gian...</p>
+    </div>
+    
+        <div class="card" onclick="location.href='game1.html'">
+      <img src="15.jpg" alt="Game 1">
+      <p>Museum Mistery</p>
+    </div>
+
+    <div class="card" onclick="location.href='game2.html'">
+      <img src="16.jpg" alt="Game 2">
+      <p>Rio Fanisia</p>
+    </div>
+
+    <div class="card" onclick="location.href='game3.html'">
+      <img src="17.jpg" alt="Game 3">
+      <p>Gesha's Rev...</p>
+    </div>
+    
+        <div class="card" onclick="location.href='game1.html'">
+      <img src="18.jpg" alt="Game 1">
+      <p>Dragon Ha...</p>
+    </div>
+
+    <div class="card" onclick="location.href='game2.html'">
+      <img src="19.jpg" alt="Game 2">
+      <p>Galaxy Min..</p>
+    </div>
+
+    <div class="card" onclick="location.href='game3.html'">
+      <img src="20.jpg" alt="Game 3">
+      <p>Dragon's Trea...</p>
+    </div>
+
+    <div class="card" onclick="location.href='game1.html'">
+      <img src="21.jpg" alt="Game 1">
+      <p>Sweet Bonanza X...</p>
+    </div>
+
+    <div class="card" onclick="location.href='https://oepfk24t0x.zuxdlxvkry.net/gs2c/html5Game.do?jackpotid=0&gname=Mahjong%20Wins%203%20-%20Black%20Scatter&extGame=1&ext=0&cb_target=exist_tab&symbol=vswaysmahwblck&jurisdictionID=99&lobbyUrl=https%3A%2F%2Fbiduri189.cc&minilobby=false&mgckey=AUTHTOKEN@f86242760174a002a6eb48a1c0dc1f7fba189c830290fb972a6b0467d437e337~stylename@rjp_rajaplay~SESSION@19527170-f08b-4951-aff3-c062eb3b201e~SN@baee7ff5&tabName='">
+      <img src="22.jpg" alt="Game 2">
+      <p>Mahjong Wins 3</p>
+    </div>
+
+    <div class="card" onclick="location.href='game3.html'">
+      <img src="23.jpg" alt="Game 3">
+      <p>Starlight Princ...</p>
+    </div>
+    
+        <div class="card" onclick="location.href='game1.html'">
+      <img src="24.jpg" alt="Game 1">
+      <p>Aztec Games</p>
+    </div>
+
+    <div class="card" onclick="location.href='game2.html'">
+      <img src="25.jpg" alt="Game 2">
+      <p>Gates Of Gat...</p>
+    </div>
+
+    <div class="card" onclick="location.href='game3.html'">
+      <img src="26.jpg" alt="Game 3">
+      <p>Gates Of O...</p>
+    </div>
+    
+        <div class="card" onclick="location.href='https://oepfk24t0x.zuxdlxvkry.net/gs2c/html5Game.do?jackpotid=0&gname=Mahjong%20Wins%202&extGame=1&ext=0&cb_target=exist_tab&symbol=vswaysmahwin2&jurisdictionID=99&lobbyUrl=https%3A%2F%2Fbiduri189.cc&minilobby=false&mgckey=AUTHTOKEN@f86242760174a002a6eb48a1c0dc1f7fba189c830290fb972a6b0467d437e337~stylename@rjp_rajaplay~SESSION@a6174a9c-22e5-426a-9afd-7a933bbd83ea~SN@baee7ff5&tabName='">
+      <img src="27.jpg" alt="Game 1">
+      <p>Mahjong Wins 2</p>
+    </div>
+
+    <div class="card" onclick="location.href='https://oepfk24t0x.zuxdlxvkry.net/gs2c/html5Game.do?jackpotid=0&gname=Mahjong%20Wins%20-%20Gong%20Xi%20Fa%20Cai&extGame=1&ext=0&cb_target=exist_tab&symbol=vswaysmahwgong&jurisdictionID=99&lobbyUrl=https%3A%2F%2Fbiduri189.cc&minilobby=false&mgckey=AUTHTOKEN@f86242760174a002a6eb48a1c0dc1f7fba189c830290fb972a6b0467d437e337~stylename@rjp_rajaplay~SESSION@64587de8-b252-43a8-bcc8-a64c2b894d5a~SN@baee7ff5&tabName='">
+      <img src="28.jpg" alt="Game 2">
+      <p>Mahjong Wins 1</p>
+    </div>
+
+    <div class="card" onclick="location.href='game3.html'">
+      <img src="29.jpg" alt="Game 3">
+      <p>Wild West...</p>
+    </div>
+    
+        <div class="card" onclick="location.href='game1.html'">
+      <img src="30.jpg" alt="Game 1">
+      <p>Rujak Bo...</p>
+    </div>
+
+    <div class="card" onclick="location.href='game2.html'">
+      <img src="31.jpg" alt="Game 2">
+      <p>Sweet Bonan...</p>
+    </div>
+
+    <div class="card" onclick="location.href='game3.html'">
+      <img src="32.jpg" alt="Game 3">
+      <p>Starlight Princess</p>
+    </div>
+    
+        <div class="card" onclick="location.href='game1.html'">
+      <img src="33.jpg" alt="Game 1">
+      <p>Gates Of Olym...</p>
+    </div>
+
+    <div class="card" onclick="location.href='game2.html'">
+      <img src="34.jpg" alt="Game 2">
+      <p>Gates Of Gato...</p>
+    </div>
+
+    <div class="card" onclick="location.href='game3.html'">
+      <img src="35.jpg" alt="Game 3">
+      <p>Wishdom Of At...</p>
+    </div>
+    
+        <div class="card" onclick="location.href='game1.html'">
+      <img src="36.jpg" alt="Game 1">
+      <p>Sweet Bonan...</p>
+    </div>
+
+    <div class="card" onclick="location.href='game2.html'">
+      <img src="37.jpg" alt="Game 2">
+      <p>Gates Of Olym...</p>
+    </div>
+
+    <div class="card" onclick="location.href='game3.html'">
+      <img src="38.jpg" alt="Game 3">
+      <p>Sweet Bonan...</p>
+    </div>
+
+    <div class="card" onclick="location.href='game1.html'">
+      <img src="39.jpg" alt="Game 1">
+      <p>Sugar Ru...</p>
+    </div>
+
+    <div class="card" onclick="location.href='game2.html'">
+      <img src="40.jpg" alt="Game 2">
+      <p>Gates Of Olym...</p>
+    </div>
+
+    <div class="card" onclick="location.href='game3.html'">
+      <img src="crash1.jpg" alt="Game 3">
+      <p>Kick It M...</p>
+    </div>
+    
+        <div class="card" onclick="location.href='game1.html'">
+      <img src="crash2.jpg" alt="Game 1">
+      <p>Cash Plane</p>
+    </div>
+
+    <div class="card" onclick="location.href='https://client.dkitrxmdwoqruvsi.net/desktop/spaceman/'">
+      <img src="crash3.jpg" alt="Game 2">
+      <p>Spaceman</p>
+    </div>
+
+    <div class="card" onclick="location.href='game3.html'">
+      <img src="crash4.jpg" alt="Game 3">
+      <p>Crash Cri...</p>
+    </div>
+    
+        <div class="card" onclick="location.href='game1.html'">
+      <img src="crash5.jpg" alt="Game 1">
+      <p>Big Boss</p>
+    </div>
+
+    <div class="card" onclick="location.href='game2.html'">
+      <img src="crash6.jpg" alt="Game 2">
+      <p>High Flyer</p>
+    </div>
+
+    <div class="card" onclick="location.href='game3.html'">
+      <img src="crash7.jpg" alt="Game 3">
+      <p>Avia Rush</p>
+    </div>
+    
+
+  </div>
+</div>
+
+
+    <!-- lanjutkan sampai 80 -->
+    
+  
+  
+    <!-- OVERLAY -->
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <img src="logo.png" alt="Peluang77">
+      <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <div class="guide"><i class="fas fa-lightbulb"></i> Panduan Pemain</div>
+    <div class="menu-grid">
+      <a href="daftar.html" class="menu-item"><i class="fas fa-sign-out-alt"></i>Keluar</a>
+      <a href="akun.html" class="menu-item"><i class="fas fa-user"></i>Akun</a>
+      <a href="#promo" class="menu-item"><i class="fas fa-gift"></i>Promosi</a>
+      <a href="pengumuman.html" class="menu-item"><i class="fas fa-bullhorn"></i>Pengumuman</a>
+      <a href="javascript:void(0)" class="menu-item" onclick="showNotif('Anda Harus Menggunakan PC/Laptop.')">
+        <i class="fas fa-desktop"></i>Versi PC
+      </a>
+      <a href="javascript:void(0)" class="menu-item" onclick="showNotif('Aplikasi Tidak Tersedia.')">
+        <i class="fas fa-download"></i>Download APK
+      </a>
+      <a href="https://wa.me/628123456789" target="_blank" class="menu-item whatsapp"><i class="fab fa-whatsapp"></i>Whatsapp</a>
+      <a href="https://t.me/@JakaGacor" target="_blank" class="menu-item telegram"><i class="fab fa-telegram"></i>Telegram</a>
+      <a href="rtp.html" class="menu-item rtp"><i class="fas fa-percentage"></i>RTP Slot</a>
+      <a href="#turnamen" class="menu-item turnamen"><i class="fas fa-trophy"></i>Turnamen</a>
+    </div>
+  </div>
+
+  <!-- NOTIFICATION CONTAINER -->
+  <div class="notification-container" id="notification-container"></div>
+
+  <!-- Navbar bawah -->
+  <div class="navbar">
+    <a href="ui.html" class="nav-item"><i class="fas fa-home"></i>Beranda</a>
+    <a href="dompet.html" class="nav-item"><i class="fas fa-wallet"></i>Deposit</a>
+   <a href="javascript:void(0)" class="nav-item" onclick="openLiveChat()">
+  <i class="fas fa-comments"></i>Live Chat
+</a>
+    <a href="akun.html" class="nav-item"><i class="fas fa-user"></i>Akun</a>
+  </div>
+
+
+
+<!-- Start of LiveChat (www.livechat.com) code -->
+<script>
+    window.__lc = window.__lc || {};
+    window.__lc.license = 19295260;
+    window.__lc.integration_name = "manual_channels";
+    window.__lc.product_name = "livechat";
+    ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
+</script>
+<noscript><a href="https://www.livechat.com/chat-with/19295260/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+<!-- End of LiveChat code -->
+
+
+  <script>
+    // Fungsi search untuk filter game berdasarkan nama
+    document.getElementById("search").addEventListener("keyup", function() {
+      let filter = this.value.toLowerCase();
+      let cards = document.querySelectorAll(".card");
+      cards.forEach(card => {
+        let text = card.innerText.toLowerCase();
+        if (text.includes(filter)) {
+          card.style.display = "";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
+    
+
+    
+    function showNotif(message) {
+      const container = document.getElementById("notification-container");
+      if (container.children.length >= 5) {
+        container.removeChild(container.firstChild);
+      }
+      const notif = document.createElement("div");
+      notif.classList.add("notification");
+      notif.innerText = message;
+      container.appendChild(notif);
+      setTimeout(() => {
+        notif.style.animation = "slideOut 0.3s forwards";
+        setTimeout(() => notif.remove(), 300);
+      }, 4000);
+    }
+
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+      document.getElementById("overlay").classList.toggle("active");
+    }
+
+    // SLIDER SCRIPT
+    const slides = document.querySelector('.slides');
+    const images = document.querySelectorAll('.slides img');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+
+    let index = 0;
+
+    function showSlide(i) {
+      index = (i + images.length) % images.length;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    function nextSlide() { showSlide(index + 1); }
+    function prevSlide() { showSlide(index - 1); }
+
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    // Auto jalan 4 detik
+    setInterval(nextSlide, 4000);
+  </script>
+</body>
+</html>

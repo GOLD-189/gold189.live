@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pengumuman</title>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  <style>
+    :root{
+      --gold:#d4af37;
+      --gold-soft:#e2c766;
+      --bg:#0f0f0f;
+      --card:#111;
+      --text:#f6f6f6;
+      --muted:#bdbdbd;
+      --border:#222;
+      --success:#19c37d;
+      --danger:#ff5c5c;
+      --warning:#ffb020;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 100% -10%, rgba(255,215,0,.18), transparent 60%),
+        radial-gradient(900px 500px at -10% 110%, rgba(255,215,0,.10), transparent 60%),
+        linear-gradient(180deg,#0b0b0b 0%, #151008 100%);
+    }
+
+    /* Topbar */
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background:rgba(15,15,15,.7);
+      border-bottom:1px solid var(--border);
+    }
+    .topbar-inner{
+      max-width:1000px; margin:auto; padding:12px 16px;
+      display:flex; align-items:center; gap:12px; justify-content:space-between;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.3px;
+      color:var(--gold);
+    }
+    .brand .logo{
+      width:34px; height:34px; display:grid; place-items:center;
+      border:1px solid var(--gold); color:var(--gold);
+      border-radius:10px; box-shadow:0 0 0 2px rgba(212,175,55,.1) inset;
+    }
+
+    /* Container */
+    .wrap{max-width:1000px; margin:18px auto; padding:0 16px;}
+
+    /* Banner */
+    .banner{
+      display:flex; gap:14px; align-items:center;
+      padding:14px 16px; border:1px solid var(--border); border-radius:16px;
+      background:linear-gradient(180deg, rgba(212,175,55,.16), rgba(212,175,55,.06));
+      box-shadow:0 10px 30px rgba(212,175,55,.08);
+    }
+    .badge{
+      font-size:.75rem; font-weight:700; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--border); background:#111; color:var(--gold);
+    }
+    .banner p{margin:0; color:#eee}
+    .banner small{color:var(--muted)}
+
+    /* Toolbar */
+    .toolbar{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      margin:16px 0 10px;
+    }
+    .search{
+      flex:1 1 260px; display:flex; align-items:center; gap:8px;
+      border:1px solid var(--border); border-radius:14px; padding:10px 12px; background:#0e0e0e;
+    }
+    .search input{
+      flex:1; border:none; outline:none; background:transparent; color:var(--text);
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:8px; border:1px solid var(--border);
+      background:#111; color:#fff; padding:10px 14px; border-radius:14px; cursor:pointer;
+      transition:transform .08s ease, opacity .08s ease;
+    }
+    .btn:hover{opacity:.9}
+    .btn:active{transform:scale(.98)}
+    .btn.gold{background:linear-gradient(180deg,var(--gold-soft),var(--gold)); color:#222; border-color:#000}
+    .btn.ghost{background:#0e0e0e}
+
+    /* List */
+    .list{display:grid; gap:12px; margin:10px 0 40px;}
+    .item{
+      border:1px solid var(--border); border-radius:16px; padding:14px 14px 12px; background:#0d0d0d;
+      transition:border-color .2s ease, background .2s ease;
+    }
+    .item.read{opacity:.75}
+    .item-header{
+      display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px;
+    }
+    .item-title{
+      display:flex; align-items:center; gap:10px; font-weight:700;
+    }
+    .tag{
+      font-size:.72rem; padding:4px 8px; border-radius:999px; border:1px solid var(--border);
+      color:#111; background:var(--gold); font-weight:700;
+    }
+    .meta{
+      display:flex; align-items:center; gap:10px; color:var(--muted); font-size:.85rem;
+    }
+    .item-content{color:#ededed; line-height:1.55}
+    .item-actions{display:flex; gap:8px; margin-top:10px; flex-wrap:wrap}
+
+    /* Empty */
+    .empty{
+      text-align:center; color:var(--muted); border:1px dashed var(--border);
+      border-radius:16px; padding:24px; margin-top:16px; background:#0d0d0d;
+    }
+
+    /* Footer */
+    footer{
+      border-top:1px solid var(--border); padding:16px; text-align:center; color:var(--muted);
+      background:rgba(15,15,15,.6);
+    }
+
+    @media (min-width:720px){
+      .list{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="logo"><i class="fa-solid fa-bullhorn"></i></div>
+        <span>PENGUMUMAN</span>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <a class="btn ghost" href="ui.html"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <!-- BANNER -->
+    <div class="banner">
+      <span class="badge"><i class="fa-solid fa-star"></i> GOLD</span>
+      <div>
+        <p><strong>Halaman Pengumuman</strong> — tema emas/gold elegan dengan border #222.</p>
+        <small>Gunakan kolom cari, atau tandai semua sebagai dibaca.</small>
+      </div>
+    </div>
+
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+      <div class="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input id="q" type="search" placeholder="Cari pengumuman..." />
+      </div>
+      <button id="markAll" class="btn"><i class="fa-regular fa-circle-check"></i> Tandai Semua Dibaca</button>
+      <button id="resetRead" class="btn"><i class="fa-solid fa-rotate-left"></i> Reset Status</button>
+      <button id="refresh" class="btn gold"><i class="fa-solid fa-rotate"></i> Muat Ulang</button>
+    </div>
+
+    <!-- LIST -->
+    <div id="list" class="list"></div>
+
+    <div id="empty" class="empty" style="display:none">
+      <i class="fa-regular fa-folder-open"></i>
+      <div style="margin-top:8px">Tidak ada pengumuman yang cocok.</div>
+    </div>
+  </main>
+
+  <footer>
+    © <span id="year"></span> —  <b style="color:var(--gold)">API 777</b>. 
+  </footer>
+
+  <script>
+    // ----- Data contoh (silakan ganti sesuai kebutuhan) -----
+    const ANNOUNCEMENTS = [
+      {
+        id: "p-001",
+        title: "Perawatan Server Terjadwal",
+        tag: "INFO",
+        time: "2025-08-25 10:00",
+        body: "Akan ada perawatan server pada 26 Agustus 2025 pukul 02:00–05:00 WIB. Selama periode ini, beberapa layanan mungkin tidak tersedia."
+      },
+      {
+        id: "p-002",
+        title: "Bonus Deposit Spesial",
+        tag: "PROMO",
+        time: "2025-08-24 18:30",
+        body: "Nikmati bonus deposit 20% untuk pengguna terpilih hingga 30 Agustus 2025. S&K berlaku."
+      },
+      {
+        id: "p-003",
+        title: "Pembaruan Keamanan",
+        tag: "PENTING",
+        time: "2025-08-23 09:15",
+        body: "Kami meningkatkan sistem keamanan. Harap aktifkan verifikasi 2 langkah pada menu akun Anda."
+      }
+    ];
+
+    // ----- Helpers -----
+    const $ = (q)=>document.querySelector(q);
+    const listEl = $("#list");
+    const emptyEl = $("#empty");
+    const yearEl = $("#year");
+    yearEl.textContent = new Date().getFullYear();
+
+    const READ_KEY = "pengumuman_read_ids_v1";
+
+    function getReadIds(){
+      try{ return JSON.parse(localStorage.getItem(READ_KEY)) || []; }
+      catch{ return []; }
+    }
+    function setReadIds(ids){
+      localStorage.setItem(READ_KEY, JSON.stringify(ids));
+    }
+    function isRead(id){ return getReadIds().includes(id); }
+
+    function render(items){
+      listEl.innerHTML = "";
+      if(items.length === 0){
+        emptyEl.style.display = "block";
+        return;
+      }
+      emptyEl.style.display = "none";
+
+      for(const it of items){
+        const card = document.createElement("article");
+        card.className = "item" + (isRead(it.id) ? " read" : "");
+        card.dataset.id = it.id;
+
+        card.innerHTML = `
+          <div class="item-header">
+            <div class="item-title">
+              <span class="tag">${it.tag}</span>
+              <span>${escapeHtml(it.title)}</span>
+            </div>
+            <div class="meta">
+              <i class="fa-regular fa-clock"></i>
+              <span>${it.time}</span>
+            </div>
+          </div>
+          <div class="item-content">${escapeHtml(it.body)}</div>
+          <div class="item-actions">
+            <button class="btn" data-action="read"><i class="fa-regular fa-circle-check"></i> Tandai Dibaca</button>
+            <button class="btn" data-action="unread"><i class="fa-regular fa-circle"></i> Tandai Belum</button>
+            <button class="btn gold" data-action="copy"><i class="fa-regular fa-copy"></i> Salin</button>
+            <button class="btn ghost" data-action="pin"><i class="fa-regular fa-bookmark"></i> Sematkan</button>
+          </div>
+        `;
+
+        card.addEventListener("click", async (e)=>{
+          const act = e.target.closest("button")?.dataset.action;
+          if(!act) return;
+          if(act === "read"){
+            const ids = new Set(getReadIds()); ids.add(it.id); setReadIds([...ids]);
+            card.classList.add("read");
+          }else if(act === "unread"){
+            const ids = new Set(getReadIds()); ids.delete(it.id); setReadIds([...ids]);
+            card.classList.remove("read");
+          }else if(act === "copy"){
+            const text = `${it.title}\n${it.time}\n\n${it.body}`;
+            try{
+              await navigator.clipboard.writeText(text);
+              toast("Teks pengumuman disalin.");
+            }catch{
+              fallbackCopyText(text);
+            }
+          }else if(act === "pin"){
+            toast("Fitur sematkan contoh (silakan integrasikan sesuai kebutuhan).");
+          }
+        });
+
+        listEl.appendChild(card);
+      }
+    }
+
+    function filterList(q){
+      const query = q.trim().toLowerCase();
+      const fil = ANNOUNCEMENTS.filter(a =>
+        a.title.toLowerCase().includes(query) ||
+        a.body.toLowerCase().includes(query) ||
+        a.tag.toLowerCase().includes(query)
+      );
+      render(fil);
+    }
+
+    // Fallback copy
+    function fallbackCopyText(text){
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.focus(); ta.select();
+      try{ document.execCommand("copy"); toast("Teks pengumuman disalin."); }
+      catch{ toast("Gagal menyalin."); }
+      finally{ document.body.removeChild(ta); }
+    }
+
+    // Simple toast
+    function toast(msg){
+      const t = document.createElement("div");
+      t.textContent = msg;
+      t.style.position="fixed"; t.style.bottom="20px"; t.style.left="50%"; t.style.transform="translateX(-50%)";
+      t.style.padding="10px 14px"; t.style.background="linear-gradient(180deg,var(--gold-soft),var(--gold))";
+      t.style.color="#222"; t.style.border="1px solid #000"; t.style.borderRadius="999px";
+      t.style.boxShadow="0 10px 30px rgba(212,175,55,.25)";
+      t.style.zIndex="9999"; t.style.fontWeight="700";
+      document.body.appendChild(t);
+      setTimeout(()=>{ t.style.transition="opacity .3s"; t.style.opacity="0"; }, 1200);
+      setTimeout(()=>t.remove(), 1600);
+    }
+
+    function escapeHtml(str){
+      return str.replace(/[&<>"']/g, m => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+      }[m]));
+    }
+
+    // Events
+    $("#q").addEventListener("input", (e)=> filterList(e.target.value));
+    $("#refresh").addEventListener("click", ()=> render(ANNOUNCEMENTS));
+    $("#markAll").addEventListener("click", ()=>{
+      setReadIds(ANNOUNCEMENTS.map(a=>a.id)); render(ANNOUNCEMENTS); toast("Semua ditandai dibaca.");
+    });
+    $("#resetRead").addEventListener("click", ()=>{
+      setReadIds([]); render(ANNOUNCEMENTS); toast("Status dibaca direset.");
+    });
+
+    // Initial
+    render(ANNOUNCEMENTS);
+  </script>
+  <script>
+  // Tambah data bonus referral
+  ANNOUNCEMENTS.push({
+    id: "p-004",
+    title: "Bonus Referral Pendaftaran",
+    tag: "BONUS",
+    time: "2025-08-25 12:00",
+    body: "Deposit minimal Rp 150.000 Untuk Claim Bonus sebesar 1.500.000!",
+    bonus: 1500000 // simpan nilai bonus
+  });
+
+  // Tambahkan aksi khusus untuk ambil bonus
+  function render(items){
+    listEl.innerHTML = "";
+    if(items.length === 0){
+      emptyEl.style.display = "block";
+      return;
+    }
+    emptyEl.style.display = "none";
+
+    for(const it of items){
+      const card = document.createElement("article");
+      card.className = "item" + (isRead(it.id) ? " read" : "");
+      card.dataset.id = it.id;
+
+      let bonusBtn = "";
+      if(it.bonus){
+        bonusBtn = `<button class="btn gold" data-action="bonus">
+                      <i class="fa-solid fa-gift"></i> Ambil Bonus
+                    </button>`;
+      }
+
+      card.innerHTML = `
+        <div class="item-header">
+          <div class="item-title">
+            <span class="tag">${it.tag}</span>
+            <span>${escapeHtml(it.title)}</span>
+          </div>
+          <div class="meta">
+            <i class="fa-regular fa-clock"></i>
+            <span>${it.time}</span>
+          </div>
+        </div>
+        <div class="item-content">${escapeHtml(it.body)}</div>
+        <div class="item-actions">
+          <button class="btn" data-action="read"><i class="fa-regular fa-circle-check"></i> Tandai Dibaca</button>
+          <button class="btn" data-action="unread"><i class="fa-regular fa-circle"></i> Tandai Belum</button>
+          <button class="btn gold" data-action="copy"><i class="fa-regular fa-copy"></i> Salin</button>
+          ${bonusBtn}
+        </div>
+      `;
+
+      card.addEventListener("click", async (e)=>{
+        const act = e.target.closest("button")?.dataset.action;
+        if(!act) return;
+
+        if(act === "bonus" && it.bonus){
+          let saldo = parseInt(localStorage.getItem("saldo") || "0");
+          saldo += it.bonus;
+          localStorage.setItem("saldo", saldo);
+          toast(`Deposit 150.000 untuk kalim bonus sebesar Rp ${it.bonus.toLocaleString()} !`);
+          // Hanya bisa diambil sekali
+          e.target.disabled = true;
+          e.target.textContent = "Bonus Diambil";
+        }
+
+        if(act === "read"){
+          const ids = new Set(getReadIds()); ids.add(it.id); setReadIds([...ids]);
+          card.classList.add("read");
+        }else if(act === "unread"){
+          const ids = new Set(getReadIds()); ids.delete(it.id); setReadIds([...ids]);
+          card.classList.remove("read");
+        }else if(act === "copy"){
+          const text = `${it.title}\n${it.time}\n\n${it.body}`;
+          try{
+            await navigator.clipboard.writeText(text);
+            toast("Teks pengumuman disalin.");
+          }catch{
+            fallbackCopyText(text);
+          }
+        }
+      });
+
+      listEl.appendChild(card);
+    }
+  }
+</script>
+  
+</body>
+</html>

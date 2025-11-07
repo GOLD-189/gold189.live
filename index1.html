@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GOLD 189 SITUS NO 1 DI INDONESIA</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {margin: 0; padding: 0; box-sizing: border-box;}
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      background: #222;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 19px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+    .menu-icon {
+      font-size: 40px;
+      cursor: pointer;
+      background: red;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: white;
+    }
+    .logo {height: 57px;}
+
+    /* NAVBAR SCROLL */
+    .scroll-menu {
+      position: fixed;
+      top: 82px;
+      left: 0;
+      right: 0;
+      background: #333;
+      white-space: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      z-index: 999;
+    }
+    .scroll-menu::-webkit-scrollbar {display: none;}
+    .scroll-menu a {
+      display: inline-block;
+      padding: 14px 18px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      transition: background 0.25s ease, transform 0.2s ease;
+    }
+    .scroll-menu a:hover {
+      background: red;
+      color: #111;
+      transform: scale(1.05);
+      border-radius: 6px;
+    }
+
+    /* SLIDER BANNER */
+    .slider {
+      position: relative;
+      margin-top: 124px; /* biar pas di bawah navbar scroll */
+      width: 100%;
+      max-height: 220px;
+      overflow: hidden;
+    }
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .slides img {
+      width: 100%;
+      flex-shrink: 0;
+    }
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+    .prev { left: 10px; }
+    .next { right: 10px; }
+
+    /* SIDEBAR */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 1999;
+      display: none;
+    }
+    .overlay.active {display: block;}
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 90%;
+      max-width: 380px;
+      height: 100%;
+      background: #2a2a2a;
+      transition: left 0.35s ease;
+      z-index: 2000;
+      overflow-y: auto;
+      padding-bottom: 30px;
+    }
+    .sidebar.active {left: 0;}
+    .sidebar-header {
+      background: #1f1f1f;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .sidebar-header img {height: 40px;}
+    .close-btn {font-size: 38px; cursor: pointer; color: #fff;}
+    .sidebar .guide {
+      background: #3a3a3a;
+      padding: 12px;
+      font-size: 16px;
+      border-bottom: 1px solid #444;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sidebar .guide i {color: gold;}
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 16px;
+    }
+    .menu-item {
+      background: #3a3a3a;
+      border-radius: 8px;
+      padding: 20px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 15px;
+      transition: transform 0.2s ease, background 0.2s ease;
+      text-decoration: none;
+      color: #fff;
+    }
+    .menu-item i {font-size: 26px;}
+    .menu-item:hover {transform: scale(1.05); background: #505050;}
+    .menu-item.whatsapp i {color: #25D366;}
+    .menu-item.telegram i {color: #229ED9;}
+    .menu-item.rtp i {color: #ff3b30;}
+    .menu-item.turnamen i {color: gold;}
+
+    /* KONTEN DEMO */
+    .content {
+      margin-top: 20px;
+      padding: 20px;
+    }
+
+    /* NOTIFICATION */
+    .notification-container {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 3000;
+    }
+    .notification {
+      background: #e63946;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 6px;
+      font-size: 15px;
+      min-width: 240px;
+      max-width: 320px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      opacity: 0;
+      transform: translateX(100%);
+      animation: slideIn 0.3s forwards;
+    }
+    @keyframes slideIn {
+      to {opacity: 1; transform: translateX(0);}
+    }
+    @keyframes slideOut {
+      to {opacity: 0; transform: translateX(100%);}
+    }
+    
+    /* MARQUEE */
+.marquee {
+  background: red;
+  color: white;
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  font-size: 9px;
+  padding: 2px 0;
+  font-weight: bold;
+  position: relative;
+}
+.marquee p {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 15s linear infinite;
+}
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+    /* Navbar bawah */
+    .navbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to right, red, gold, red);
+      display: flex;
+      justify-content: space-around;
+      padding: 15px 0;
+      z-index: 1000;
+    }
+
+    .nav-item {
+      text-align: center;
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .nav-item i {
+      font-size: 24px;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .horizontal-menu { display:flex; overflow-x:auto; gap:10px; margin-top:90px; padding:10px 0; }
+.horizontal-menu button {
+  white-space:nowrap; background:#333; border:none; color:#fff;
+  padding:10px 16px; border-radius:20px; font-size:14px; cursor:pointer; flex-shrink:0; transition:background 0.3s;
+}
+.horizontal-menu button:hover { background:gold; }
+
+.credit-text { margin-top: 20px; color: white; font-size: 14px; text-align: center; }
+
+/* BUTTON MASUK & DAFTAR */
+.auth-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px;
+}
+
+.auth-buttons .btn {
+  flex: 1;
+  text-align: center;
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.auth-buttons .masuk {
+  background: #444; /* abu gelap */
+}
+
+.auth-buttons .daftar {
+  background: red;
+  color: white;
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <i class="fas fa-bars menu-icon" onclick="toggleSidebar()"></i>
+    <img src="logo.png" alt="Logo" class="logo">
+    <div style="width:40px"></div>
+  </div>
+
+  <!-- NAVBAR SCROLL -->
+  <div class="scroll-menu">
+    <a href="#sports">Sports</a>
+    <a href="#poker">Poker</a>
+    <a href="#casino">Casino</a>
+    <a href="#togel">Togel</a>
+    <a href="#slot">Slot</a>
+    <a href="#fishing">Fishing</a>
+    <a href="#crash">New Crash</a>
+    <a href="#arcade">New Arcade</a>
+    <a href="#sabung">Sabung A</a>
+  </div>
+
+  <!-- SLIDER BANNER -->
+  <div class="slider">
+    <div class="slides">
+      <img src="Banner1.jpg" alt="Banner 1">
+      <img src="Banner2.jpg" alt="Banner 2">
+      <img src="Banner3.jpg" alt="Banner 3">
+      <img src="Banner4.jpg" alt="Banner 4">
+      <img src="Banner5.jpg" alt="Banner 5">
+         <img src="Banner6.gif" alt="Banner 6">
+    </div>
+    <button class="prev">&#10094;</button>
+    <button class="next">&#10095;</button>
+  </div>
+
+<!-- MARQUEE TEXT -->
+<div class="marquee">
+  <p>🎉 Selamat datang di QQNUSA88! Nikmati bonus deposit 100% untuk member baru 🎁 | Event Turnamen Slot berhadiah total 50 Juta 💰 | Jangan lewatkan promo cashback setiap hari 🔥</p>
+</div>
+
+<!-- BUTTON MASUK & DAFTAR -->
+<div class="auth-buttons">
+  <a href="masuk.html" class="btn masuk">Masuk</a>
+  <a href="daftar.html" class="btn daftar">Daftar</a>
+</div>
+
+<!-- USER INFO -->
+<div class="user-info" style="margin-top:5px; padding:10px; background:#222; display:flex; justify-content:space-between; align-items:center; color:white;">
+  <div>
+    <div>Username: <span id="">Guest</span></div>
+    <div>Saldo: - <span id=""></span></div>
+  </div>
+  <button id="refreshBtn" style="background:red; border:none; padding:8px 12px; border-radius:6px; cursor:pointer;">
+    <i class="fas fa-arrows-rotate"></i>
+  </button>
+</div>
+
+<!-- PG SOFT SECTION -->
+<div class="pgsoft-section" style="margin-top:15px; padding:10px;">
+  <h3 style="color:white; margin-bottom:10px;">SLOT</h3>
+  <div class="pgsoft-grid" style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px;">
+    <!-- Generate 20 game items -->
+    <a href="https://m.nkryu17dc.com/65/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=11deletn%3Dg2vjf1vuc%3Dnzx&__hv=2fMEUCIQDAEe0ipj1iclbrwKPLkWWJMDse5XEILsracq8AsIXPzQIgDoTBSMeQv%2BmbDjkdoKv%2BpxyqNVY6vlCxDZux6xa79UE%3D" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="1.jpg" alt="Game 1" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Mahjong Ways</span>
+    </a>
+    <a href="https://m.nkryu17dc.com/74/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=19lmtmbv%3Do2drn1dck%3Dvhf&__hv=2fMEUCIQDAEe0ipj1iclbrwKPLkWWJMDse5XEILsracq8AsIXPzQIgDoTBSMeQv%2BmbDjkdoKv%2BpxyqNVY6vlCxDZux6xa79UE%3D" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="2.jpg" alt="Game 2" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Mahjong Ways 2</span>
+    </a>
+    <a href="https://m.nkryu17dc.com/135/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=19lmtmbv%3Do2drn1dck%3Dvhf&__hv=2fMEYCIQCuSwSpKg%2Ftq6ezhJXTxc%2B14iXfiak4Gb4F2BCA8EnF3AIhAKIT8h1aXHzd%2B%2FV1PnmExaxNtpJ1bLhuZDsbzowAOEZj" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="3.jpg" alt="Game 3" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Wild Bounty S...</span>
+    </a>
+    <a href="https://m.nkryu17dc.com/104/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=01tubujd%3Dw2lzv1lks%3Ddpn&__hv=2fMEUCIQDAEe0ipj1iclbrwKPLkWWJMDse5XEILsracq8AsIXPzQIgDoTBSMeQv%2BmbDjkdoKv%2BpxyqNVY6vlCxDZux6xa79UE%3D" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="4.jpg" alt="Game 4" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Wild Bandito</span>
+    </a>
+    <a href="https://m.nkryu17dc.com/87/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=06yzgzoi%3Db2qea1qpx%3Dius&__hv=2fMEUCIQDAEe0ipj1iclbrwKPLkWWJMDse5XEILsracq8AsIXPzQIgDoTBSMeQv%2BmbDjkdoKv%2BpxyqNVY6vlCxDZux6xa79UE%3D" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="5.jpg" alt="Game 5" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Treasure Of Aztec</span>
+    </a>
+    <a href="6.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="6.jpg" alt="Game 6" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Museum Mistery</span>
+    </a>
+    <a href="7.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="7.jpg" alt="Game 7" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 7</span>
+    </a>
+    <a href="8.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="8.jpg" alt="Game 8" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 8</span>
+    </a>
+    <a href="9.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="9.jpg" alt="Game 9" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 9</span>
+    </a>
+    <a href="10.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="10.jpg" alt="Game 10" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 10</span>
+    </a>
+    <a href="11.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="11.jpg" alt="Game 11" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 11</span>
+    </a>
+    <a href="12.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="12.jpg" alt="Game 12" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 12</span>
+    </a>
+    <a href="13.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="13.jpg" alt="Game 13" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 13</span>
+    </a>
+    <a href="14.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="14.jpg" alt="Game 14" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 14</span>
+    </a>
+    <a href="15.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="15.jpg" alt="Game 15" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 15</span>
+    </a>
+    <a href="16.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="16.jpg" alt="Game 16" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 16</span>
+    </a>
+    <a href="17.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="17.jpg" alt="Game 17" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 17</span>
+    </a>
+    <a href="18.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="18.jpg" alt="Game 18" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 18</span>
+    </a>
+    <a href="19.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="19.jpg" alt="Game 19" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 19</span>
+    </a>
+    <a href="20.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="20.jpg" alt="Game 20" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 20</span>
+    </a>
+        <a href="21.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="21.jpg" alt="Game 21" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 21</span>
+    </a>
+  </div>
+</div>
+
+
+<!-- PG SOFT SECTION -->
+<div class="pgsoft-section" style="margin-top:15px; padding:10px;">
+  <h3 style="color:white; margin-bottom:10px;">SLOT</h3>
+  <div class="pgsoft-grid" style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px;">
+    <!-- Generate 20 game items -->
+    <a href="https://m.nkryu17dc.com/65/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=11deletn%3Dg2vjf1vuc%3Dnzx&__hv=2fMEUCIQDAEe0ipj1iclbrwKPLkWWJMDse5XEILsracq8AsIXPzQIgDoTBSMeQv%2BmbDjkdoKv%2BpxyqNVY6vlCxDZux6xa79UE%3D" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="1.jpg" alt="Game 1" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Mahjong Ways</span>
+    </a>
+    <a href="2.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="2.jpg" alt="Game 2" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Mahjong Ways 2</span>
+    </a>
+    <a href="3.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="3.jpg" alt="Game 3" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Wild Bounty S...</span>
+    </a>
+    <a href="4.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="4.jpg" alt="Game 4" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Wild Bandito</span>
+    </a>
+    <a href="5.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="5.jpg" alt="Game 5" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Treasure Of Aztec</span>
+    </a>
+    <a href="6.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="6.jpg" alt="Game 6" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Museum Mistery</span>
+    </a>
+    <a href="7.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="7.jpg" alt="Game 7" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 7</span>
+    </a>
+    <a href="8.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="8.jpg" alt="Game 8" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 8</span>
+    </a>
+    <a href="9.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="9.jpg" alt="Game 9" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 9</span>
+    </a>
+    <a href="10.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="10.jpg" alt="Game 10" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 10</span>
+    </a>
+    <a href="11.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="11.jpg" alt="Game 11" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 11</span>
+    </a>
+    <a href="12.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="12.jpg" alt="Game 12" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 12</span>
+    </a>
+    <a href="13.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="13.jpg" alt="Game 13" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 13</span>
+    </a>
+    <a href="14.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="14.jpg" alt="Game 14" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 14</span>
+    </a>
+    <a href="15.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="15.jpg" alt="Game 15" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 15</span>
+    </a>
+    <a href="16.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="16.jpg" alt="Game 16" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 16</span>
+    </a>
+    <a href="17.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="17.jpg" alt="Game 17" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 17</span>
+    </a>
+    <a href="18.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="18.jpg" alt="Game 18" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 18</span>
+    </a>
+    <a href="19.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="19.jpg" alt="Game 19" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 19</span>
+    </a>
+    <a href="20.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="20.jpg" alt="Game 20" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Game 20</span>
+    </a>
+        <a href="21.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="21.jpg" alt="Game 21" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Sweet Bon...</span>
+    </a>
+  </div>
+</div>
+
+
+
+
+  <!-- OVERLAY -->
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <img src="logo.png" alt="Peluang77">
+      <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <div class="guide"><i class="fas fa-lightbulb"></i> Panduan Pemain</div>
+    <div class="menu-grid">
+      <a href="masuk.html" class="menu-item"><i class="fas fa-sign-in-alt"></i>Masuk</a>
+      <a href="daftar.html" class="menu-item"><i class="fas fa-user-plus"></i>Daftar</a>
+      <a href="#promo" class="menu-item"><i class="fas fa-gift"></i>Promosi</a>
+      <a href="#pengumuman" class="menu-item"><i class="fas fa-bullhorn"></i>Pengumuman</a>
+      <a href="javascript:void(0)" class="menu-item" onclick="showNotif('Anda Harus Menggunakan PC/Laptop.')">
+        <i class="fas fa-desktop"></i>Versi PC
+      </a>
+      <a href="javascript:void(0)" class="menu-item" onclick="showNotif('Aplikasi Tidak Tersedia.')">
+        <i class="fas fa-download"></i>Download APK
+      </a>
+      <a href="wa.me/62811140206" target="_blank" class="menu-item whatsapp"><i class="fab fa-whatsapp"></i>Whatsapp</a>
+      <a href="https://t.me/@JakaGacor" target="_blank" class="menu-item telegram"><i class="fab fa-telegram"></i>Telegram</a>
+      <a href="rtp.html" class="menu-item rtp"><i class="fas fa-percentage"></i>RTP Slot</a>
+      <a href="#turnamen" class="menu-item turnamen"><i class="fas fa-trophy"></i>Turnamen</a>
+    </div>
+  </div>
+
+  <!-- KONTEN DEMO -->
+  <div class="content">
+    <h2>Banner Promo / Konten Utama</h2>
+    <p>Isi konten utama di sini...</p>
+  </div>
+
+  <!-- NOTIFICATION CONTAINER -->
+  <div class="notification-container" id="notification-container"></div>
+
+
+
+  <!-- Navbar bawah -->
+  <div class="navbar">
+    <a href="index1.html" class="nav-item"><i class="fas fa-home"></i>Beranda</a>
+
+   <a href="javascript:void(0)" class="nav-item" onclick="openLiveChat()">
+  <i class="fas fa-comments"></i>Live Chat
+</a>
+    <a href="masuk.html" class="nav-item"><i class="fas fa-user"></i>Akun</a>
+  </div>
+
+<!-- Start of LiveChat (www.livechat.com) code -->
+<!-- Start of LiveChat (www.livechat.com) code -->
+<script>
+    window.__lc = window.__lc || {};
+    window.__lc.license = 19360282;
+    window.__lc.integration_name = "manual_channels";
+    window.__lc.product_name = "livechat";
+    ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
+</script>
+<noscript><a href="https://www.livechat.com/chat-with/19360282/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+<!-- End of LiveChat code -->
+
+<noscript><a href="https://www.livechat.com/chat-with/19295838/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+<!-- End of LiveChat code -->
+
+
+<script>
+  const usernameEl = document.getElementById("username");
+  const saldoEl = document.getElementById("saldo");
+  const refreshBtn = document.getElementById("refreshBtn");
+
+  // Ambil user terakhir login
+  let currentUser = localStorage.getItem("lastLogin");
+
+  if (currentUser) {
+    let userData = JSON.parse(localStorage.getItem("user_" + currentUser));
+
+    usernameEl.textContent = userData.username;
+    saldoEl.textContent = "0.00"; // saldo awal = 0.00
+
+    // tombol refresh tetap 0.00
+    refreshBtn.addEventListener("click", function () {
+      saldoEl.textContent = "0.00";
+
+      refreshBtn.classList.add("spin");
+      setTimeout(() => refreshBtn.classList.remove("spin"), 800);
+    });
+  }
+</script>
+
+
+
+  <script>
+    
+    function openLiveChat() {
+    if (window.LiveChatWidget) {
+      LiveChatWidget.call("maximize"); // buka jendela chat
+    } else {
+      alert("LiveChat belum siap, coba beberapa detik lagi.");
+    }
+  }
+    
+    function showNotif(message) {
+      const container = document.getElementById("notification-container");
+      if (container.children.length >= 5) {
+        container.removeChild(container.firstChild);
+      }
+      const notif = document.createElement("div");
+      notif.classList.add("notification");
+      notif.innerText = message;
+      container.appendChild(notif);
+      setTimeout(() => {
+        notif.style.animation = "slideOut 0.3s forwards";
+        setTimeout(() => notif.remove(), 300);
+      }, 4000);
+    }
+
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+      document.getElementById("overlay").classList.toggle("active");
+    }
+
+    // SLIDER SCRIPT
+    const slides = document.querySelector('.slides');
+    const images = document.querySelectorAll('.slides img');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+
+    let index = 0;
+
+    function showSlide(i) {
+      index = (i + images.length) % images.length;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    function nextSlide() { showSlide(index + 1); }
+    function prevSlide() { showSlide(index - 1); }
+
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    // Auto jalan 4 detik
+    setInterval(nextSlide, 4000);
+  </script>
+
+</body>
+</html>

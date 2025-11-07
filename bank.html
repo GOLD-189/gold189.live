@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detail Bank</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  body{font-family:Arial,sans-serif; background:white; color:#fff; padding-top:160px; margin:0;}
+
+  /* TOPBAR */
+  .topbar{background:#222; display:flex; align-items:center; justify-content:space-between; padding:16px 19px; position:fixed; top:0; left:0; right:0; z-index:1000;}
+  .menu-icon{font-size:40px; cursor:pointer; background:gold; padding:5px 10px; border-radius:5px; color:white;}
+  .logo{height:50px;}
+
+  /* TABS */
+  .tabs{display:flex; background:#4B4BFF; color:white; margin-top:0px;}
+  .tab{flex:1; text-align:center; padding:10px; cursor:pointer; border-bottom:2px solid #222; font-size:14px;}
+  .tab.active{background:#2B2BFF;}
+
+  /* CONTAINER */
+  .container{padding:15px; max-width:360px; margin:20px auto; background:#222; border-radius:6px; box-shadow:0 0 8px rgba(0,0,0,0.3);}
+  label{display:block; margin-top:12px; font-weight:bold; font-size:13px;}
+  input{width:100%; padding:6px 8px; margin-top:4px; border:1px solid #ccc; border-radius:4px; background:#111; color:#fff; font-size:13px; outline:none;}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <i class="fas fa-bars menu-icon" onclick="history.back()"></i>
+  <img src="logo.png" alt="Logo" class="logo">
+  <div style="width:40px"></div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab" onclick="location.href='akun.html'">Profile Akun</div>
+  <div class="tab active">Detail Bank</div>
+</div>
+
+<!-- BOX DETAIL BANK -->
+<div class="container">
+  <label>Nama Bank</label>
+  <input type="text" id="bankName" disabled>
+
+  <label>Nama Rekening</label>
+  <input type="text" id="accountName" disabled>
+
+  <label>Nomor Rekening</label>
+  <input type="text" id="accountNumber" disabled>
+</div>
+
+<script>
+
+  // load data bank dari localStorage
+  const lastLogin = localStorage.getItem('lastLogin');
+  if(lastLogin){
+    const userData = JSON.parse(localStorage.getItem('user_' + lastLogin)) || {};
+
+    document.getElementById('bankName').value = userData.bank || '';
+    document.getElementById('accountName').value = userData.namaRekening || '';
+
+    // cek beberapa kemungkinan nama key untuk nomor rekening
+    document.getElementById('accountNumber').value = 
+      userData.noRekening || 
+      userData.rekening || 
+      userData.accountNumber || 
+      userData.norek || '';
+  }
+</script>
+
+
+</body>
+</html>

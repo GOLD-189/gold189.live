@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GOLD 189 SALAH SATU SITUS NO 1 DI INDONESIA</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {margin: 0; padding: 0; box-sizing: border-box;}
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      background: #222;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 19px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+    .menu-icon {
+      font-size: 40px;
+      cursor: pointer;
+      background: red;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: white;
+    }
+    .logo {height: 57px;}
+
+    /* NAVBAR SCROLL */
+    .scroll-menu {
+      position: fixed;
+      top: 82px;
+      left: 0;
+      right: 0;
+      background: #333;
+      white-space: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      z-index: 999;
+    }
+    .scroll-menu::-webkit-scrollbar {display: none;}
+    .scroll-menu a {
+      display: inline-block;
+      padding: 14px 18px;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      transition: background 0.25s ease, transform 0.2s ease;
+    }
+    .scroll-menu a:hover {
+      background: red;
+      color: #111;
+      transform: scale(1.05);
+      border-radius: 6px;
+    }
+
+    /* SLIDER BANNER */
+    .slider {
+      position: relative;
+      margin-top: 124px; /* biar pas di bawah navbar scroll */
+      width: 100%;
+      max-height: 220px;
+      overflow: hidden;
+    }
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .slides img {
+      width: 100%;
+      flex-shrink: 0;
+    }
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+    .prev { left: 10px; }
+    .next { right: 10px; }
+
+    /* SIDEBAR */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 1999;
+      display: none;
+    }
+    .overlay.active {display: block;}
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 90%;
+      max-width: 380px;
+      height: 100%;
+      background: #2a2a2a;
+      transition: left 0.35s ease;
+      z-index: 2000;
+      overflow-y: auto;
+      padding-bottom: 30px;
+    }
+    .sidebar.active {left: 0;}
+    .sidebar-header {
+      background: #1f1f1f;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .sidebar-header img {height: 40px;}
+    .close-btn {font-size: 38px; cursor: pointer; color: #fff;}
+    .sidebar .guide {
+      background: #3a3a3a;
+      padding: 12px;
+      font-size: 16px;
+      border-bottom: 1px solid #444;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sidebar .guide i {color: gold;}
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 16px;
+    }
+    .menu-item {
+      background: #3a3a3a;
+      border-radius: 8px;
+      padding: 20px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 15px;
+      transition: transform 0.2s ease, background 0.2s ease;
+      text-decoration: none;
+      color: #fff;
+    }
+    .menu-item i {font-size: 26px;}
+    .menu-item:hover {transform: scale(1.05); background: #505050;}
+    .menu-item.whatsapp i {color: #25D366;}
+    .menu-item.telegram i {color: #229ED9;}
+    .menu-item.rtp i {color: #ff3b30;}
+    .menu-item.turnamen i {color: gold;}
+
+    /* KONTEN DEMO */
+    .content {
+      margin-top: 20px;
+      padding: 20px;
+    }
+
+    /* NOTIFICATION */
+    .notification-container {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 3000;
+    }
+    .notification {
+      background: #e63946;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 6px;
+      font-size: 15px;
+      min-width: 240px;
+      max-width: 320px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      opacity: 0;
+      transform: translateX(100%);
+      animation: slideIn 0.3s forwards;
+    }
+    @keyframes slideIn {
+      to {opacity: 1; transform: translateX(0);}
+    }
+    @keyframes slideOut {
+      to {opacity: 0; transform: translateX(100%);}
+    }
+    
+    /* MARQUEE */
+.marquee {
+  background: gold;
+  color: #111;
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  font-size: 9px;
+  padding: 2px 0;
+  font-weight: bold;
+  position: relative;
+}
+.marquee p {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 15s linear infinite;
+}
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+    /* Navbar bawah */
+    .navbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to right, red, gold, red);
+      display: flex;
+      justify-content: space-around;
+      padding: 15px 0;
+      z-index: 1000;
+    }
+
+    .nav-item {
+      text-align: center;
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .nav-item i {
+      font-size: 24px;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .horizontal-menu { display:flex; overflow-x:auto; gap:10px; margin-top:90px; padding:10px 0; }
+.horizontal-menu button {
+  white-space:nowrap; background:#333; border:none; color:#fff;
+  padding:10px 16px; border-radius:20px; font-size:14px; cursor:pointer; flex-shrink:0; transition:background 0.3s;
+}
+.horizontal-menu button:hover { background:gold; }
+
+.credit-text { margin-top: 20px; color: white; font-size: 14px; text-align: center; }
+
+/* BUTTON MASUK & DAFTAR */
+.auth-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px;
+}
+
+.auth-buttons .btn {
+  flex: 1;
+  text-align: center;
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.auth-buttons .masuk {
+  background: #444; /* abu gelap */
+}
+
+.auth-buttons .daftar {
+  background: red;
+  color: #111;
+}
+
+.container {
+  position: center;
+  display: flex;
+  margin-top: 10px;
+  border-bottom: 100px;
+  gap: 15px;                /* jarak antar kotak */
+  flex-wrap: wrap;          /* biar kalau layar kecil, kotak turun ke bawah */
+  justify-content: center;  /* biar tetap rata tengah */
+}
+
+.box {
+  width: 71px;             /* lebar kotak */
+  height: 50px;            /* tinggi kotak */
+  background: #222;
+  border-radius: 10px;
+  overflow: hidden;         /* supaya gambar tidak keluar kotak */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;  /* jaga rasio gambar */
+  display: block;
+}
+
+
+
+
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <i class="fas fa-bars menu-icon" onclick="toggleSidebar()"></i>
+    <img src="logo.png" alt="Logo" class="logo">
+    <div style="width:40px"></div>
+  </div>
+
+  <!-- NAVBAR SCROLL -->
+    <div class="scroll-menu">
+    <a href="sports.html">Sports</a>
+    <a href="poker.html">Poker</a>
+    <a href="casino.html">Casino</a>
+    <a href="togel.html">Togel</a>
+    <a href="slot.html">Slot</a>
+    <a href="fishing.html">Fishing</a>
+    <a href="crash.html">New Crash</a>
+    <a href="sabung Ayam.html">Sabung Ayam</a>
+  </div>
+
+  <!-- SLIDER BANNER -->
+  <div class="slider">
+    <div class="slides">
+      <img src="Banner1.jpg" alt="Banner 1">
+      <img src="Banner2.jpg" alt="Banner 2">
+      <img src="Banner3.jpg" alt="Banner 3">
+      <img src="Banner4.jpg" alt="Banner 4">
+      <img src="Banner5.jpg" alt="Banner 5">
+    </div>
+    <button class="prev">&#10094;</button>
+    <button class="next">&#10095;</button>
+  </div>
+
+<!-- MARQUEE TEXT -->
+<div class="marquee">
+  <p>🎉 Selamat datang di GOLD 189! Nikmati bonus deposit 100% untuk member baru 🎁 | Event Turnamen Slot berhadiah total 50 Juta 💰 | Jangan lewatkan promo cashback setiap hari 🔥</p>
+</div>
+
+<!-- BUTTON MASUK & DAFTAR -->
+<div class="auth-buttons">
+  <a href="dompet.html" class="btn masuk">Deposit</a>
+  <a href="anjay.html" class="btn daftar">Withdraw</a>
+</div>
+
+<!-- USER INFO -->
+<div class="user-info" style="margin-top:5px; padding:10px; background:#222; display:flex; justify-content:space-between; align-items:center; color:white;">
+  <div>
+    <div>Username: <span id="username">Guest</span></div>
+    <div>Saldo: Rp <span id="saldo">0</span></div>
+  </div>
+  <button id="refreshBtn" style="background:red; border:none; padding:8px 12px; border-radius:6px; cursor:pointer;">
+    <i class="fas fa-arrows-rotate"></i>
+  </button>
+</div>
+
+<!-- PG SOFT SECTION -->
+<div class="pgsoft-section" style="margin-top:15px; padding:10px;">
+  <h3 style="color:white; margin-bottom:10px;">SLOT</h3>
+  <div class="pgsoft-grid" style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px;">
+    <!-- Generate 20 game items -->
+    <a href="https://m.wkvytxcg8.com/65/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=10cdkdsm%3Dgufidhmq8%3Dmyw&__hv=2fMEYCIQCeCnn%2BvIP2ZvOvJieKETX%2BLUXEn7g870nJBzSjCegQ7gIhAKLvla3Pb3Uimt2ljchKV3zNn8AHkz1J3oA%2BAH8%2Bti0H" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="1.jpg" alt="Game 1" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Mahjong Ways 1</span>
+    </a>
+    <a href="https://m.wkvytxcg8.com/74/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=03vwdwlf%3Dznybwafj8%3Dfrp&__hv=2fMEYCIQCeCnn%2BvIP2ZvOvJieKETX%2BLUXEn7g870nJBzSjCegQ7gIhAKLvla3Pb3Uimt2ljchKV3zNn8AHkz1J3oA%2BAH8%2Bti0H" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="2.jpg" alt="Game 2" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Mahjong Ways 2</span>
+    </a>
+    <a href="https://m.wkvytxcg8.com/135/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=10cdkdsm%3Dgufidhmq8%3Dmyw&__hv=2fMEYCIQCeCnn%2BvIP2ZvOvJieKETX%2BLUXEn7g870nJBzSjCegQ7gIhAKLvla3Pb3Uimt2ljchKV3zNn8AHkz1J3oA%2BAH8%2Bti0H" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="3.jpg" alt="Game 3" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Wild Bounty S...</span>
+    </a>
+    <a href="https://wl1.loobygameshub.com/api/pgs/launch/pgs_110?data=145c060048e8549566d7e53485f100d95a58f67870b02d280ebafe980ce2711247cc37ee2d010700e1b3a7b3e143d0f5f0a6f8885c5f10a99bc8f9d7a65c206a5819c5b916e48425f7ba1eb154ea9ff2d482e5da30218f70c3bea7708ecae9e2a68a5ed6d8eb20c47dbde61b999d94759d16bb0ce3a61d79046758221bb9191d368d6bf7caf9ea269032c111bfde7b49858716c4725ab1b05278a17ab3176c98a3d3249f7a76d014a8924bb86ad5d12d0af1374ff5b2aecef8364272ba4cdf99dc8e02c86b7b9f9f664f6404e510a7040da8277f2efa9ae84dfe9acefaf085d8b6a33255e458d3e51eb06a8bf6ed199080ad7d15debdd82f2cbba9ca5a8242acea9c8248a3dd941efe80589f675e080145a4f0d112d3d4966d1283375cd067f234ed6b1a956204c9b78eecc7897a1fdf3890875be4c77f8afdbe61ebdd0e817d3ad8200cc3a377ef0c8e9f4ed93f4aab5afe4fe46250ef090d201a7343913fa98d0731b2eaa37dde3475e366a1b9cf50b5a9a357b5b22691198c2555ab4d38a8d371cce8766ff9658dc27b7d3bd1be509c29cd5ea812d9a3434562f5ade795a6e13c235b745dc958e168b69e292ed2342459bf5e933b98d5cfa05bb018af4565edd7b041b4df0a18987348c91e14f32232627d1370a10064ce876959a218af14b0d8c43d8abec5e15862f37402998b642ca2946a544313a7ae19e3281b7751da734ad6334812bea939d4533a54629397b271503de33c8d643a25d74c238cae7919e128879b97ae2c628ae95dc67e97a560bfe9376a3cad9f6e9a3036fc54a84c0f3a1d9e61eff86881f733465879481eb655fadbd21c1a4416d9a81318376629cca93d191f34e19d2c9bfcfec44ac12ca0b1b1a19a1e5d6888198a3a32b775b83d75af413240ef5c25f521121d4d6ea98580bd90f0dcc2031d68381c64977898e425e1dabbdff1745250c23b4132e8f1234c01a0378e51ae008679d02f8c2c5655c234ce338f686f6f98dc3c56965e229dd3b98d44ba28d1852fcf8e7ebb23830e9d6977f46a35d7bd80f1761b7b7b43236e3b41e265e03417cfced091ba227c374c2d5814337a9fe48a7a16e9dd6cde182e8ddb425610174e759ffedcb268a8210d29985c4560da63b53803855339cba0b5cc750a6afeba92216f12fd40978b29cc9734335f14336903beb06cf641d281be07ed88c57530352af76c6f672926c32084d1ab3e0fedd3fb5d2b69f9e94fe456b7f84325c4211bd658561ae8a96a3963ee056ae1bf13d28ae4f3fd0ed03d48ae4261c5d4732c4ba147b701f34ded07993cc15f27d5dd7011a49dc6a01f93a9e88cd9337e0cd1618c23aad4cddb53d927a6873a0f870dfb6bb20de7b94c28da0640208d5d8316db1b53575d34efd7fe485287400b589964c412ce20a89a94e4e82e0d50b29dcd156ed4a1c77e7d88dbfa24d06d92e920ec73cf679ce87c7380f6b20cbf8a68d50f40faa373c767d3ee036754bcda3d17a89172eb7a30c721533df639dff480e14e879ceaf05d952240e63afc2af6eda2f0c8cfb8a34d351874180593fe5eb2ab41b8165e51106aeef73cbcd5a6cca873f8e2277a811c454d4d0caf3345fe5ed081d4e0b359e671934b67bcf616031909436290d4d5deb1059e1b9fb1ec22bc5f4e044b5d725c0847" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="4.jpg" alt="Game 4" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Jurassic Kingdom</span>
+    </a>
+    <a href="https://m.wkvytxcg8.com/104/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=01tubujd%3Dxlwzuydh8%3Ddpn&__hv=2fMEQCIGvFTa9eA%2Bbz8Yl1Q9qUWhLMHqO98b8NgMJevu0OsGPoAiBze7%2BF89apkAAIhSOcPvMpTkdBNp%2B0kGjPkzC1EL7xXA%3D%3D" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="5.jpg" alt="Game 5" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Wild Bandito</span>
+    </a>
+    <a href="https://m.wkvytxcg8.com/87/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=18klslau%3Docnqlpuy8%3Duge&__hv=2fMEYCIQCeCnn%2BvIP2ZvOvJieKETX%2BLUXEn7g870nJBzSjCegQ7gIhAKLvla3Pb3Uimt2ljchKV3zNn8AHkz1J3oA%2BAH8%2Bti0H" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="6.jpg" alt="Game 6" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Treasure Of Aztec</span>
+    </a>
+    <a href="https://m.wkvytxcg8.com/84/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=24qryrga%3Duitwrvae8%3Damk&__hv=2fMEQCIGvFTa9eA%2Bbz8Yl1Q9qUWhLMHqO98b8NgMJevu0OsGPoAiBze7%2BF89apkAAIhSOcPvMpTkdBNp%2B0kGjPkzC1EL7xXA%3D%3D" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="7.jpg" alt="Game 7" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Queen Of Bounty</span>
+    </a>
+    <a href="https://m.wkvytxcg8.com/89/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=04wxexmg%3Daozcxbgk8%3Dgsq&__hv=2fMEYCIQCeCnn%2BvIP2ZvOvJieKETX%2BLUXEn7g870nJBzSjCegQ7gIhAKLvla3Pb3Uimt2ljchKV3zNn8AHkz1J3oA%2BAH8%2Bti0H" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="8.jpg" alt="Game 8" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Lucky Neko</span>
+    </a>
+    <a href="" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="9.jpg" alt="Game 9" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Captain'S Bounty</span>
+    </a>
+    <a href="10.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="10.jpg" alt="Game 10" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Leprechaun Ri...</span>
+    </a>
+    <a href="" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="11.jpg" alt="Game 11" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Dinez Fre...</span>
+    </a>
+    <a href="" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="12.jpg" alt="Game 12" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Deadman's Riches</span>
+    </a>
+    <a href="" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="13.jpg" alt="Game 13" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Grafiti Rush</span>
+    </a>
+    <a href="https://m.nkryu17dc.com/1834850/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=25rszshb%3Du2jxt1jiq%3Dbnl&__hv=2fMEYCIQC0CljPmUbOweXmWyG75MiufJaeXR69x9WGje2udpFEowIhALXhLSsljQriNxAmgyHVFrZ6Gc%2F5VNXR9WYRzZzlo%2F6A" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="14.jpg" alt="Game 14" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Jack The Giant...</span>
+    </a>
+    <a href="https://m.nkryu17dc.com/1755623/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=06yzgzoi%3Db2qea1qpx%3Dius&__hv=2fMEQCIE8MW0mePDSPyg9YRl0PgXq55OZpucAvt%2F%2FE5Ic7R1HyAiAuUEsy0d7GmvcG641KC7aaf4GfBmkfyxLaTSjH%2FNDi1w%3D%3D" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="15.jpg" alt="Game 15" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Museum Mistery</span>
+    </a>
+    <a href="https://m.nkryu17dc.com/1786529/index.html?ot=85DBB269-68B2-6576-D804-08FC48C4FDE9&btt=1&ops=YzDBMeoX0e1WMY5WxQwzw&op=B189PG42483&or=07zahapj%3Dc2rfb1rqy%3Djvt&__hv=2fMEYCIQC0CljPmUbOweXmWyG75MiufJaeXR69x9WGje2udpFEowIhALXhLSsljQriNxAmgyHVFrZ6Gc%2F5VNXR9WYRzZzlo%2F6A" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="16.jpg" alt="Game 16" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Rio Fantasia</span>
+    </a>
+    <a href="17.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="17.jpg" alt="Game 17" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Gesha's Reve...</span>
+    </a>
+    <a href="18.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="18.jpg" alt="Game 18" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Dragon Hatch</span>
+    </a>
+    <a href="https://m.nkryu17dc.com/1918451/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=21novodx%3Dq2ftp1fem%3Dxjh&__hv=2fMEYCIQC0CljPmUbOweXmWyG75MiufJaeXR69x9WGje2udpFEowIhALXhLSsljQriNxAmgyHVFrZ6Gc%2F5VNXR9WYRzZzlo%2F6A" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="19.jpg" alt="Game 19" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Galaxy Miner</span>
+    </a>
+    <a href="https://m.nkryu17dc.com/1897678/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=02uvcvke%3Dx2maw1mlt%3Deqo&__hv=2fMEQCIE8MW0mePDSPyg9YRl0PgXq55OZpucAvt%2F%2FE5Ic7R1HyAiAuUEsy0d7GmvcG641KC7aaf4GfBmkfyxLaTSjH%2FNDi1w%3D%3D" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="20.jpg" alt="Game 20" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Dragon's Treas...</span>
+    </a>
+
+ <a href="https://client.dkitrxmdwoqruvsi.net/desktop/spaceman/" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="crash3.jpg" alt="Game 2" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Spaceman</span>
+    </a>
+    <!-- Generate 20 game items -->
+    <a href="https://m.nkryu17dc.com/65/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=11deletn%3Dg2vjf1vuc%3Dnzx&__hv=2fMEUCIQDAEe0ipj1iclbrwKPLkWWJMDse5XEILsracq8AsIXPzQIgDoTBSMeQv%2BmbDjkdoKv%2BpxyqNVY6vlCxDZux6xa79UE%3D" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="21.jpg" alt="Game 1" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Sweet Bonanza X...</span>
+    </a>
+    <a href="https://oepfk24t0x.zuxdlxvkry.net/gs2c/html5Game.do?jackpotid=0&gname=Mahjong%20Wins%203%20-%20Black%20Scatter&extGame=1&ext=0&cb_target=exist_tab&symbol=vswaysmahwblck&jurisdictionID=99&lobbyUrl=https%3A%2F%2Fbiduri189.cc&minilobby=false&mgckey=AUTHTOKEN@f86242760174a002a6eb48a1c0dc1f7fba189c830290fb972a6b0467d437e337~stylename@rjp_rajaplay~SESSION@19527170-f08b-4951-aff3-c062eb3b201e~SN@baee7ff5&tabName=" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="22.jpg" alt="Game 2" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Mahjong Wins 3</span>
+    </a>
+    <a href="3.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="23.jpg" alt="Game 3" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Starlight Princess...</span>
+    </a>
+    <a href="4.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="24.jpg" alt="Game 4" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Aztec Games</span>
+    </a>
+    <a href="5.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="25.jpg" alt="Game 5" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Gets Of Gatotkaca</span>
+    </a>
+    <a href="https://oepfk24t0x.zuxdlxvkry.net/gs2c/html5Game.do?jackpotid=0&gname=Gates%20of%20Olympus%201000&extGame=1&ext=0&cb_target=exist_tab&symbol=vs20olympx&jurisdictionID=99&lobbyUrl=https%3A%2F%2Fbiduri189.cc&minilobby=false&mgckey=AUTHTOKEN@bb167e244031cebc772bb95c030393dd69171a774be780170883a36cdc21590d~stylename@rjp_rajaplay~SESSION@632ee52f-2da9-40c5-af0a-1f8a3e206b41~SN@a7d0c8b9&tabName=" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="26.jpg" alt="Game 6" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Gets Of Olympus</span>
+    </a>
+    <a href="7.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="27.jpg" alt="Game 7" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Mahjong Wins 2</span>
+    </a>
+    <a href="8.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="28.jpg" alt="Game 8" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Mahjong Wins</span>
+    </a>
+    <a href="9.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="29.jpg" alt="Game 9" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Wild West Go...</span>
+    </a>
+    <a href="10.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="30.jpg" alt="Game 10" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Rujak Bonanza</span>
+    </a>
+    <a href="https://oepfk24t0x.zuxdlxvkry.net/gs2c/html5Game.do?jackpotid=0&gname=Sweet%20Bonanza%20Super%20Scatter&extGame=1&ext=0&cb_target=exist_tab&symbol=vs20swbonsup&jurisdictionID=99&lobbyUrl=https%3A%2F%2Fbiduri189.cc&minilobby=false&mgckey=AUTHTOKEN@bb167e244031cebc772bb95c030393dd69171a774be780170883a36cdc21590d~stylename@rjp_rajaplay~SESSION@9aa81a6a-532b-47cd-949e-f777e69826fa~SN@a7d0c8b9&tabName=" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="31.jpg" alt="Game 11" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Sweet Bonanza Su...</span>
+    </a>
+    <a href="12.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="32.jpg" alt="Game 12" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Starlight Princess</span>
+    </a>
+    <a href="13.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="33.jpg" alt="Game 13" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Gates Of Olym...</span>
+    </a>
+    <a href="https://oepfk24t0x.zuxdlxvkry.net/gs2c/html5Game.do?jackpotid=0&gname=Gates%20of%20Gatot%20Kaca%201000&extGame=1&ext=0&cb_target=exist_tab&symbol=vs20gatotx&jurisdictionID=99&lobbyUrl=https%3A%2F%2Fbiduri189.cc&minilobby=false&mgckey=AUTHTOKEN@bb167e244031cebc772bb95c030393dd69171a774be780170883a36cdc21590d~stylename@rjp_rajaplay~SESSION@a73b89d5-e32e-4cb6-b825-5966ebb1d054~SN@a7d0c8b9&tabName=" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="34.jpg" alt="Game 14" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Gates Of Gato...</span>
+    </a>
+    <a href="15.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="35.jpg" alt="Game 15" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Wishdom Of Ath...</span>
+    </a>
+    <a href="36.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="36.jpg" alt="Game 16" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Sweet Bonanza 10...</span>
+    </a>
+    <a href="37.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="37.jpg" alt="Game 17" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Gates Of Olympus</span>
+    </a>
+    <a href="https://oepfk24t0x.zuxdlxvkry.net/gs2c/html5Game.do?jackpotid=0&gname=Sweet%20Bonanza%20Super%20Scatter&extGame=1&ext=0&cb_target=exist_tab&symbol=vs20swbonsup&jurisdictionID=99&lobbyUrl=https%3A%2F%2Fbiduri189.cc&minilobby=false&mgckey=AUTHTOKEN@bb167e244031cebc772bb95c030393dd69171a774be780170883a36cdc21590d~stylename@rjp_rajaplay~SESSION@80264ef0-a92c-4a11-a5c1-247c1c599f4a~SN@a7d0c8b9&tabName=" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="38.jpg" alt="Game 18" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Sweet Bonanza</span>
+    </a>
+    <a href="https://oepfk24t0x.zuxdlxvkry.net/gs2c/html5Game.do?jackpotid=0&gname=Sugar%20Rush%201000&extGame=1&ext=0&cb_target=exist_tab&symbol=vs20sugarrushx&jurisdictionID=99&lobbyUrl=https%3A%2F%2Fbiduri189.cc&minilobby=false&mgckey=AUTHTOKEN@bb167e244031cebc772bb95c030393dd69171a774be780170883a36cdc21590d~stylename@rjp_rajaplay~SESSION@fff1a730-a3a0-4639-8437-12a30dce510d~SN@a7d0c8b9&tabName=" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="39.jpg" alt="Game 19" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Sugar Rush 10...</span>
+    </a>
+    <a href="20.html" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="40.jpg" alt="Game 20" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Gates Of Olym...</span>
+    </a>
+  </div>
+</div>
+
+
+<div class="pgsoft-section" style="margin-top:15px; padding:10px;">
+  <h3 style="color:white; margin-bottom:10px;">TOGEL</h3>
+  <div class="pgsoft-grid" style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px;">
+    <!-- Generate 20 game items -->
+    <a href="#" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="togel1.jpg" alt="Game 1" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Toto 4d</span>
+    </a>
+    <a href="#" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="togel2.jpg" alt="Game 2" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Scorpio</span>
+    </a>
+    <a href="#" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="togel3.jpg" alt="Game 3" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Singapoure</span>
+    </a>
+    <a href="#" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="togel4.jpg" alt="Game 4" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Leo</span>
+    </a>
+    <a href="#" class="game-item" style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:white;">
+      <img src="togel5.jpg" alt="Game 5" style="width:100%; border-radius:8px;">
+      <span style="margin-top:5px;">Aquarius</span>
+    </a>
+</div>
+</div>
+
+  <!-- OVERLAY -->
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <img src="logo.png" alt="Peluang77">
+      <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <div class="guide"><i class="fas fa-lightbulb"></i> Panduan Pemain</div>
+    <div class="menu-grid">
+      <a href="index.html" class="menu-item"><i class="fas fa-sign-out-alt"></i>Keluar</a>
+      <a href="akun.html" class="menu-item"><i class="fas fa-user"></i>Akun</a>
+      <a href="transaksi.html" class="menu-item"><i class="fas fa-file-invoice"></i>Riwayat TRX</a>
+      <a href="pengumuman.html" class="menu-item"><i class="fas fa-bullhorn"></i>Pengumuman</a>
+      <a href="javascript:void(0)" class="menu-item" onclick="showNotif('Anda Harus Menggunakan PC/Laptop.')">
+        <i class="fas fa-desktop"></i>Versi PC
+      </a>
+      <a href="javascript:void(0)" class="menu-item" onclick="showNotif('Aplikasi Tidak Tersedia.')">
+        <i class="fas fa-download"></i>Download APK
+      </a>
+      <a href="https://whatsapp.com/channel/0029Vb6vjcuGE56oYidi6B3g" target="_blank" class="menu-item whatsapp"><i class="fab fa-whatsapp"></i>Whatsapp</a>
+      <a href="https://t.me/rikiofi" target="_blank" class="menu-item telegram"><i class="fab fa-telegram"></i>Telegram</a>
+      <a href="rtp.html" class="menu-item rtp"><i class="fas fa-percentage"></i>RTP Slot</a>
+      <a href="#turnamen" class="menu-item turnamen"><i class="fas fa-trophy"></i>Turnamen</a>
+    </div>
+  </div>
+
+  <!-- KONTEN DEMO -->
+  
+  
+
+  <div class="container">
+    <div class="box"><img src="p1.jpg" alt="Gambar 1"></div>
+    <div class="box"><img src="p2.jpg" alt="Gambar 2"></div>
+    <div class="box"><img src="p3.jpg" alt="Gambar 3"></div>
+    <div class="box"><img src="p4.jpg" alt="Gambar 4"></div>
+    <div class="box"><img src="p5.jpg" alt="Gambar 5"></div>
+    <div class="box"><img src="p6.jpg" alt="Gambar 6"></div>
+  </div>
+</body>
+</html>
+
+<div class="in">
+  <p><h1>Tentang GOLD 189</h1></p>
+  <h4>
+<p> GOLD 189: Tempat Hiburan Online yang Bikin Hari-Hari Kamu Makin Seru!
+Selamat datang di GOLD 189 destinasi hiburan online terbaik yang sudah dipercaya banyak orang di seluruh Indonesia. Di sini, kamu akan merasakan sensasi bermain yang tidak ada duanya, seperti disambut layaknya raja oleh pelayan di istana—yup, itulah level pelayanan kami! </p>
+
+<p>Kami menawarkan berbagai macam permainan yang siap membuat hari-harimu lebih berwarna. Dengan dukungan teknologi terkini, kamu akan merasakan performa yang memuaskan setiap kali bermain. Bayangkan saja, semua keseruan ini bisa diakses dengan mudah tanpa ribet. Gak perlu khawatir tentang keamanan, karena kami sudah bekerjasama dengan banyak pihak terpercaya di seluruh Asia. Jadi, privasi kamu aman di tangan kami, layaknya uang di bawah kasur.
+</p>
+
+
+Sensasi Bermain dengan Sistem Terkini
+
+<p>Di GOLD 189, kami tahu apa yang kamu butuhkan. Bukan hanya tentang keseruan bermain, tetapi juga pelayanan prima 24/7 yang selalu siap menemani kapan pun kamu butuh. Dari pagi sampai tengah malam, kapan pun kamu ingin mencari hiburan, GOLD 189 selalu hadir dengan tangan terbuka. Bahkan, kalau tiba-tiba kamu menghadapi masalah teknis atau saldo yang lagi seret, tim kami siap bantu dengan sigap!</p>
+
+
+
+
+<p>Mengapa Memilih Gold 189?</p>
+
+<p>Buat kamu yang masih ragu-ragu, coba pikirkan ini: GOLD 189 hadir dengan winrate yang bikin semangat terus-terusan. Kami tidak hanya memberikan hiburan, tapi juga peluang untuk kamu meraih kemenangan. Dengan performa teknologi mutakhir dan tingkat "kepuasan pemain" yang tinggi, kami menjamin bahwa setiap kali kamu bermain, kamu tidak akan merasa rugi. Jadi, kalau kamu sedang mencari hiburan yang menyenangkan, GOLD 189 adalah jawabannya.</p>
+
+
+
+
+<p> Game Favorit yang Wajib Kamu Coba di GOLD 189
+
+Masih bingung mau main yang mana? Tenang, kami sudah siapkan daftar permainan paling seru yang bisa kamu nikmati di GOLD 189: </p>
+
+<p>Gerbang Olympus Ajaib
+
+Perjalanan Sihir
+
+Kemenangan Mahjong
+
+Putri Cahaya Bintang
+
+Serangan Sang Perampok
+
+Neko Keberuntungan
+
+Gerbang KOI
+
+Kerajaan Dewa Zeus
+
+Permata Keberuntungan
+
+Buah Panas-Panas
+
+Kekaisaran Emas
+
+Dunia Kripto</p>
+
+
+Itu baru sebagian dari koleksi kami! Semuanya dirancang untuk memberikan hiburan tanpa batas dan penuh kejutan.
+
+
+---
+
+<br>Trik Jitu Memenangkan Permainan di GOLD 189</br>
+
+Ingin tahu bagaimana cara memaksimalkan peluang kamu? Yuk, intip beberapa tips yang bisa membuatmu menjadi lebih "beruntung":
+
+Tunggu Bonus Siap Meledak!
+Bonus besar kadang terasa akan muncul setelah putaran tertentu. Jadi, tunggu saat yang tepat dan ambil kesempatan itu!
+
+Mainkan Game Terbaru
+Game baru biasanya punya tingkat kemenangan lebih tinggi sebagai cara menarik pemain.
+
+Stop Kalau Sudah Turun 50%
+<br>Jika saldo sudah turun 50-60% dari deposit awal, lebih baik berhenti dan coba lagi besok.</br>
+
+
+<br>Kenapa Kadang Kalah Itu Gak Masalah</br>
+
+<br>Ingat, GOLD 189 itu tempat hiburan. Kadang menang, kadang kalah—itu wajar! Yang penting, kita tetap ingat bahwa ini semua hanyalah sarana bersenang-senang. Jangan jadikan hiburan ini sebagai jalan hidup atau mata pencaharian. Selalu pakai uang yang aman dan gak akan bikin kamu pusing tujuh keliling kalau kalah. dan Kalau menang.</br>
+
+</h4>
+</div>
+
+<h1>p</h1>
+<h1>p</h1>
+
+  <!-- NOTIFICATION CONTAINER -->
+  <div class="notification-container" id="notification-container"></div>
+
+
+
+  <!-- Navbar bawah -->
+  <div class="navbar">
+    <a href="ui.html" class="nav-item"><i class="fas fa-home"></i>Beranda</a>
+    <a href="dompet.html" class="nav-item"><i class="fas fa-wallet"></i>Deposit</a>
+   <a href="https://direct.lc.chat/19360282/" class="nav-item" onclick="openLiveChat()">
+  <i class="fas fa-comments"></i>Live Chat
+</a>
+    <a href="akun.html" class="nav-item"><i class="fas fa-user"></i>Akun</a>
+  </div>
+
+<!-- Start of LiveChat (www.livechat.com) code -->
+<script>
+    window.__lc = window.__lc || {};
+    window.__lc.license = 19360282;
+    window.__lc.integration_name = "manual_channels";
+    window.__lc.product_name = "livechat";
+    ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
+</script>
+<noscript><a href="https://www.livechat.com/chat-with/19360282/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+<!-- End of LiveChat code -->
+
+<noscript><a href="https://www.livechat.com/chat-with/19295838/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+<!-- End of LiveChat code -->
+
+
+<script>
+  const usernameEl = document.getElementById("username");
+  const saldoEl = document.getElementById("saldo");
+  const refreshBtn = document.getElementById("refreshBtn");
+
+  // Ambil user terakhir login
+  let currentUser = localStorage.getItem("lastLogin");
+
+  if (currentUser) {
+    let userData = JSON.parse(localStorage.getItem("user_" + currentUser));
+
+    usernameEl.textContent = userData.username;
+    saldoEl.textContent = "0.00"; // saldo awal = 0.00
+
+    // tombol refresh tetap 0.00
+    refreshBtn.addEventListener("click", function () {
+      saldoEl.textContent = "0.00";
+
+      refreshBtn.classList.add("spin");
+      setTimeout(() => refreshBtn.classList.remove("spin"), 800);
+    });
+  }
+</script>
+
+
+
+  <script>
+    
+    function openLiveChat() {
+    if (window.LiveChatWidget) {
+      LiveChatWidget.call("maximize"); // buka jendela chat
+    } else {
+      alert("LiveChat belum siap, coba beberapa detik lagi.");
+    }
+  }
+    
+    function showNotif(message) {
+      const container = document.getElementById("notification-container");
+      if (container.children.length >= 5) {
+        container.removeChild(container.firstChild);
+      }
+      const notif = document.createElement("div");
+      notif.classList.add("notification");
+      notif.innerText = message;
+      container.appendChild(notif);
+      setTimeout(() => {
+        notif.style.animation = "slideOut 0.3s forwards";
+        setTimeout(() => notif.remove(), 300);
+      }, 4000);
+    }
+
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+      document.getElementById("overlay").classList.toggle("active");
+    }
+
+    // SLIDER SCRIPT
+    const slides = document.querySelector('.slides');
+    const images = document.querySelectorAll('.slides img');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+
+    let index = 0;
+
+    function showSlide(i) {
+      index = (i + images.length) % images.length;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    function nextSlide() { showSlide(index + 1); }
+    function prevSlide() { showSlide(index - 1); }
+
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    // Auto jalan 4 detik
+    setInterval(nextSlide, 4000);
+  </script>
+
+<script>
+  // Format angka jadi Rupiah
+  function formatRupiah(angka) {
+    return angka.toLocaleString("id-ID");
+  }
+
+  function loadUserData() {
+    const lastLogin = localStorage.getItem("lastLogin");
+    if (!lastLogin) return;
+
+    // Ambil data user & saldo
+    const userData = JSON.parse(localStorage.getItem("user_" + lastLogin));
+    const saldo = parseInt(localStorage.getItem("saldo_" + lastLogin)) || 0;
+
+    // Tampilkan ke UI
+    document.getElementById("username").innerText = userData.username;
+    document.getElementById("saldo").innerText = formatRupiah(saldo);
+  }
+
+  // Refresh saldo manual
+  document.getElementById("refreshBtn").addEventListener("click", () => {
+    loadUserData();
+  });
+
+  // Load pertama kali
+  window.onload = loadUserData;
+</script>
+
+</body>
+</html>

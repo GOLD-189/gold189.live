@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daftar - GOLD 189</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {font-family: Arial, sans-serif; background:#f7f7f7;}
+
+    /* --- TOPBAR & NAV --- */
+    .topbar {
+      background:#222;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:16px 19px; position:fixed; top:0; left:0; right:0; z-index:1000;
+    }
+    .menu-icon {
+      font-size:40px; cursor:pointer; background:red; padding:5px 10px; border-radius:5px; color:white;
+    }
+    .logo {height:50px;}
+
+    .scroll-menu {
+      position:fixed; top:82px; left:0; right:0;
+      background:#333; white-space:nowrap; overflow-x:auto;
+      -webkit-overflow-scrolling:touch; scrollbar-width:none; z-index:999;
+    }
+    .scroll-menu::-webkit-scrollbar {display:none;}
+    .scroll-menu a {
+      display:inline-block; padding:14px 18px; color:#fff; text-decoration:none; font-size:16px;
+      transition:background 0.25s ease, transform 0.2s ease;
+    }
+    .scroll-menu a:hover {background:red; color:#111; transform:scale(1.05); border-radius:6px;}
+
+        /* SIDEBAR */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 1999;
+      display: none;
+    }
+    .overlay.active {display: block;}
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 90%;
+      max-width: 380px;
+      height: 100%;
+      background: #2a2a2a;
+      transition: left 0.35s ease;
+      z-index: 2000;
+      overflow-y: auto;
+      padding-bottom: 30px;
+    }
+    .sidebar.active {left: 0;}
+    .sidebar-header {
+      background: #1f1f1f;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .sidebar-header img {height: 40px;}
+    .close-btn {font-size: 38px; cursor: pointer; color: #fff;}
+    .sidebar .guide {
+      background: #3a3a3a;
+      padding: 12px;
+      font-size: 16px;
+      border-bottom: 1px solid #444;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sidebar .guide i {color: gold;}
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 16px;
+    }
+    .menu-item {
+      background: #3a3a3a;
+      border-radius: 8px;
+      padding: 20px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 15px;
+      transition: transform 0.2s ease, background 0.2s ease;
+      text-decoration: none;
+      color: #fff;
+    }
+    .menu-item i {font-size: 26px;}
+    .menu-item:hover {transform: scale(1.05); background: #505050;}
+    .menu-item.whatsapp i {color: #25D366;}
+    .menu-item.telegram i {color: #229ED9;}
+    .menu-item.rtp i {color: #ff3b30;}
+    .menu-item.turnamen i {color: gold;}
+
+    /* KONTEN DEMO */
+    .content {
+      margin-top: 20px;
+      padding: 20px;
+    }
+
+    /* NOTIFICATION */
+    .notification-container {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 3000;
+    }
+    .notification {
+      background: #e63946;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 6px;
+      font-size: 15px;
+      min-width: 240px;
+      max-width: 320px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      opacity: 0;
+      transform: translateX(100%);
+      animation: slideIn 0.3s forwards;
+    }
+    @keyframes slideIn {
+      to {opacity: 1; transform: translateX(0);}
+    }
+    @keyframes slideOut {
+      to {opacity: 0; transform: translateX(100%);}
+    }
+
+    .navbar {
+      position:fixed; bottom:0; left:0; right:0;
+      background:linear-gradient(to right, red, gold ,red);
+      display:flex; justify-content:space-around; padding:15px 0; z-index:1000;
+    }
+    .nav-item {text-align:center; color:white; text-decoration:none; font-size:15px; font-weight:bold;}
+    .nav-item i {font-size:24px; display:block; margin-bottom:5px;}
+
+    /* --- FORM --- */
+    .form-box {
+      background:#fff;
+      margin:140px 15px 90px;
+      padding:20px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.1);
+    }
+    .form-box h3 {margin-bottom:10px; color:Gold;}
+    .form-group {margin-bottom:12px;}
+    .form-group label {display:block; font-size:14px; margin-bottom:5px; color:#333;}
+    .form-group input, .form-group select {
+      width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; font-size:14px;
+    }
+
+    .captcha-box {display:flex; align-items:center;}
+    .captcha-text {
+      background:#000; color:#fff; font-weight:bold; letter-spacing:3px;
+      padding:8px 15px; border-radius:6px; margin-right:10px; font-family:monospace;
+    }
+    .refresh {cursor:pointer; font-size:18px;}
+
+    .checkbox {display:flex; align-items:center; margin:10px 0; font-size:13px;}
+    .checkbox input {margin-right:8px;}
+
+    .btn {width:100%; background: red; color:#fff; padding:12px; border:none; border-radius:6px; font-size:16px; cursor:pointer;}
+    .btn:hover {background:red;}
+
+    /* --- NOTIFIKASI --- */
+    .notification-container {
+      position:fixed; top:70px; right:20px;
+      display:flex; flex-direction:column; gap:10px; z-index:3000;
+    }
+    .notification {
+      display:flex; align-items:center; gap:10px;
+      color:white; padding:12px 18px; border-radius:6px;
+      font-size:15px; min-width:240px; max-width:320px;
+      box-shadow:0 4px 8px rgba(0,0,0,0.3);
+      opacity:0; transform:translateX(100%);
+      animation:slideIn 0.3s forwards;
+    }
+    .notification.success {background:#2ecc71;} /* hijau */
+    .notification.error {background:#e63946;} /* merah */
+    .notification i {font-size:18px;}
+    @keyframes slideIn {to {opacity:1; transform:translateX(0);}}
+    @keyframes slideOut {to {opacity:0; transform:translateX(100%);}}
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <i class="fas fa-bars menu-icon" onclick="toggleSidebar()"></i>
+    <img src="logo.png" alt="Logo" class="logo">
+    <div style="width:40px"></div>
+  </div>
+
+  <!-- NAVBAR SCROLL -->
+  <div class="scroll-menu">
+    <a href="#">Sports</a><a href="#">Poker</a><a href="#">Casino</a><a href="#">Togel</a>
+    <a href="#">Slot</a><a href="#">Fishing</a><a href="#">Crash</a><a href="#">Arcade</a><a href="#">Sabung</a>
+  </div>
+
+  <!-- FORM DAFTAR -->
+  <div class="form-box">
+    <h3>Daftar Akun Baru</h3>
+    <h4>Detail Akun</h4>
+    <div class="form-group"><label>Username</label><input type="text" id="username"></div>
+    <div class="form-group"><label>Kata Sandi</label><input type="password" id="password"></div>
+    <div class="form-group"><label>Konfirmasi Kata Sandi</label><input type="password" id="confirmPassword"></div>
+    <div class="form-group"><label>No Hp (Opsional)</label><input type="text" id="phone"></div>
+    <div class="form-group"><label>Email (Opsional)</label><input type="email" id="email"></div>
+    <div class="form-group"><label>Kode Referral (Opsional)</label><input type="text" id="referral"></div>
+    <div class="form-group">
+      <label>Captcha</label>
+      <div class="captcha-box">
+        <div class="captcha-text" id="captcha"></div>
+        <div class="refresh" onclick="generateCaptcha()">&#x21bb;</div>
+      </div>
+      <input type="text" id="captchaInput" placeholder="Masukkan captcha">
+    </div>
+
+    <h4>Detail Bank</h4>
+    <div class="form-group"><label>Nama Rekening</label><input type="text" id="namaRekening"></div>
+    <div class="form-group">
+      <label>Pilih Bank</label>
+      <select id="bank">
+        <option value="">-- Pilih Bank --</option>
+        <option>BCA</option><option>Mandiri</option><option>BRI</option><option>BNI</option><option>CMBI Niaga</option><option>AKULAKU</option><option>Jago</option><option>Gopay</option><option>Ovo</option><option>Dana</option><option>Mandiri</option><option>SAKUKU</option><option>SHOPPE PAY</option><option>NEOBANK</option><option>SEABANK</option><option>SINARMAS</option>
+        <option>BRILink</option>
+        <option>LinkAja</option>
+        <option>BANK SYARIAH INDONESIA</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Nomor Rekening</label><input type="text" id="rekening"></div>
+
+    <div class="checkbox">
+      <input type="checkbox" id="agree">
+      <label for="agree">Saya sudah berumur 18 tahun keatas & setuju dengan peraturan</label>
+    </div>
+    <button class="btn" onclick="submitForm()">Daftar</button>
+  </div>
+
+  <!-- OVERLAY -->
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <img src="logo.png" alt="Peluang77">
+      <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <div class="guide"><i class="fas fa-lightbulb"></i> Panduan Pemain</div>
+    <div class="menu-grid">
+      <a href="masuk.html" class="menu-item"><i class="fas fa-sign-in-alt"></i>Masuk</a>
+      <a href="daftar.html" class="menu-item"><i class="fas fa-user-plus"></i>Daftar</a>
+      <a href="#promo" class="menu-item"><i class="fas fa-gift"></i>Promosi</a>
+      <a href="#pengumuman" class="menu-item"><i class="fas fa-bullhorn"></i>Pengumuman</a>
+      <a href="javascript:void(0)" class="menu-item" onclick="showNotif('Anda Harus Menggunakan PC/Laptop.')">
+        <i class="fas fa-desktop"></i>Versi PC
+      </a>
+      <a href="javascript:void(0)" class="menu-item" onclick="showNotif('Aplikasi Tidak Tersedia.')">
+        <i class="fas fa-download"></i>Download APK
+      </a>
+      <a href="https://wa.me/628123456789" target="_blank" class="menu-item whatsapp"><i class="fab fa-whatsapp"></i>Whatsapp</a>
+      <a href="https://t.me/@JakaGacor" target="_blank" class="menu-item telegram"><i class="fab fa-telegram"></i>Telegram</a>
+      <a href="#rtp" class="menu-item rtp"><i class="fas fa-percentage"></i>RTP Slot</a>
+      <a href="#turnamen" class="menu-item turnamen"><i class="fas fa-trophy"></i>Turnamen</a>
+    </div>
+  </div>
+
+  <!-- KONTEN DEMO -->
+  <div class="content">
+    <h2>Banner Promo / Konten Utama</h2>
+    <p>Isi konten utama di sini...</p>
+  </div>
+
+  <!-- NOTIFICATION CONTAINER -->
+  <div class="notification-container" id="notification-container"></div>
+
+  <!-- NAVBAR BAWAH -->
+  <div class="navbar">
+    <a href="index1.html" class="nav-item"><i class="fas fa-home"></i>Beranda</a>
+<a href="https://direct.lc.chat/19360282/" class="nav-item" onclick="openLiveChat()">
+  <i class="fas fa-comments"></i>Live Chat
+</a>
+    <a href="daftar.html" class="nav-item"><i class="fas fa-user"></i>Akun</a>
+  </div>
+
+<!-- Start of LiveChat (www.livechat.com) code -->
+<script>
+    window.__lc = window.__lc || {};
+    window.__lc.license = 19360282;
+    window.__lc.integration_name = "manual_channels";
+    window.__lc.product_name = "livechat";
+    ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
+</script>
+<noscript><a href="https://www.livechat.com/chat-with/19360282/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+<!-- End of LiveChat code -->
+
+<noscript><a href="https://www.livechat.com/chat-with/19273842/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+<!-- End of LiveChat code -->
+
+
+<script>
+  
+  function openLiveChat() {
+    if (window.LiveChatWidget) {
+      LiveChatWidget.call("maximize"); // buka jendela chat
+    } else {
+      alert("LiveChat belum siap, coba beberapa detik lagi.");
+    }
+  }
+  
+  
+  
+  
+  // Sidebar toggle
+  function toggleSidebar(){
+    document.getElementById("sidebar").classList.toggle("active");
+    document.getElementById("overlay").classList.toggle("active");
+  }
+
+  // Captcha
+  function generateCaptcha(){
+    const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let c=''; for(let i=0;i<5;i++){c+=chars.charAt(Math.floor(Math.random()*chars.length));}
+    document.getElementById('captcha').innerText=c;
+  }
+
+  // Notif
+  function showNotif(message, type="error", callback){
+    const container=document.getElementById("notification-container");
+    if(container.children.length>=5){container.removeChild(container.firstChild);}
+    const notif=document.createElement("div");
+    notif.classList.add("notification", type);
+
+    const icon=document.createElement("i");
+    if(type==="success"){icon.classList.add("fas","fa-check-circle");}
+    else{icon.classList.add("fas","fa-xmark");}
+
+    const text=document.createElement("span");
+    text.innerText=message;
+
+    notif.appendChild(icon);
+    notif.appendChild(text);
+    container.appendChild(notif);
+
+    setTimeout(()=>{
+      notif.style.animation="slideOut 0.3s forwards";
+      setTimeout(()=>{
+        notif.remove();
+        if(callback) callback();
+      },300);
+    },1200);
+  }
+
+  // Submit
+  // Submit
+function submitForm(){
+  const username=document.getElementById('username').value.trim();
+  const pass=document.getElementById('password').value.trim();
+  const confirm=document.getElementById('confirmPassword').value.trim();
+  const namaRekening=document.getElementById('namaRekening').value.trim();
+  const bank=document.getElementById('bank').value;
+  const rekening=document.getElementById('rekening').value.trim();
+  const captcha=document.getElementById('captcha').innerText;
+  const captchaInput=document.getElementById('captchaInput').value.trim();
+  const agree=document.getElementById('agree').checked;
+  const referral=document.getElementById('referral').value.trim();
+
+  if(!username||!pass||!confirm||!namaRekening||!bank||!rekening){
+    showNotif("Harap isi semua kolom wajib!", "error"); return;
+  }
+  if(pass!==confirm){showNotif("Konfirmasi password tidak cocok!", "error"); return;}
+  if(captchaInput!==captcha){showNotif("Captcha salah!", "error"); return;}
+  if(!agree){showNotif("Anda harus setuju dengan syarat & ketentuan!", "error"); return;}
+
+  // ✅ Default saldo: 0
+  let saldoAwal = 0;
+
+  // ✅ Jika referral = AAAI → saldo 3.000.000
+  if(referral.toUpperCase() === "AAAI"){
+    saldoAwal = 3000000;
+  }
+
+  // ✅ Simpan ke localStorage
+  const userData = {
+    username: username,
+    password: pass,
+    namaRekening: namaRekening,
+    bank: bank,
+    rekening: rekening,
+    phone: document.getElementById('phone').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    referral: referral
+  };
+
+  localStorage.setItem("user_"+username, JSON.stringify(userData));
+  localStorage.setItem("saldo_"+username, saldoAwal);
+  localStorage.setItem("lastLogin", username);
+
+  // ✅ Notifikasi sukses
+  showNotif("Pendaftaran berhasil!"
+  .toLocaleString(), "success", ()=> {
+    window.location.href="ui.html";
+  });
+}
+  generateCaptcha();
+</script>
+
+</body>
+</html>

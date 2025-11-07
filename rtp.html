@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REAL RTP BETBEBAS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    h1 {
+      margin: 0;
+    }
+    .auth-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    .auth-buttons a {
+      text-decoration: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .auth-buttons a.login {
+      background: #444;
+      color: #fff;
+    }
+    .auth-buttons a.login:hover {
+      background: red;
+    }
+    .auth-buttons a.daftar {
+      background: red;
+      color: #111;
+    }
+    .auth-buttons a.daftar:hover {
+      background: red;
+    }
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      justify-content: center;
+    }
+    .filters button {
+      padding: 10px 15px;
+      border: none;
+      background: #333;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+    .filters button.active,
+    .filters button:hover {
+      background: red;
+    }
+    .search-box {
+      text-align: center;
+      margin: 15px 0;
+    }
+    .search-box input {
+      padding: 10px;
+      width: 80%;
+      max-width: 400px;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+    }
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .game-card {
+      background: #222;
+      border-radius: 10px;
+      overflow: hidden;
+      text-align: center;
+      padding: 10px;
+      transition: transform 0.3s;
+    }
+    .game-card:hover {
+      transform: scale(1.05);
+    }
+    .game-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .game-name {
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      width: 100%;
+      background: #333;
+      border-radius: 5px;
+      margin-top: 8px;
+      overflow: hidden;
+      height: 15px;
+      position: relative;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      transition: width 1.5s ease-in-out;
+    }
+    .progress-text {
+      font-size: 12px;
+      margin-top: 4px;
+      color: #ddd;
+    }
+       .slider {
+      position: relative;
+      margin-top: 10px; /* biar pas di bawah navbar scroll */
+      width: 100%;
+      max-height: 220px;
+      overflow: hidden;
+    }
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .slides img {
+      width: 100%;
+      flex-shrink: 0;
+    }
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+    .prev { left: 10px; }
+    .next { right: 10px; }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>RTP - QQNUSA88</h1>
+    <div class="auth-buttons">
+      <a href="masuk.html" class="login">Masuk</a>
+      <a href="daftar.html" class="daftar">Daftar</a>
+    </div>
+  </header>
+
+  <div class="filters">
+    <div>
+      <button class="provider-btn active">PG Soft</button>
+      <button class="provider-btn">Pragmatic Play</button>
+      <button class="provider-btn">Cosmo Play</button>
+      <button class="provider-btn">Fat Panda</button>
+    </div>
+    <div>
+      <button class="time-btn active">Kemarin</button>
+      <button class="time-btn">3 Hari Lalu</button>
+    </div>
+  </div>
+
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Cari game berdasarkan nama...">
+  </div>
+
+  <div class="game-grid" id="gameGrid"></div>
+
+<h3>Promosi...</h3>
+
+  <div class="slider">
+    <div class="slides">
+      <img src="Banner1.jpg" alt="Banner 1">
+      <img src="Banner2.jpg" alt="Banner 2">
+      <img src="Banner3.jpg" alt="Banner 3">
+      <img src="Banner4.jpg" alt="Banner 4">
+      <img src="Banner5.jpg" alt="Banner 5">
+    </div>
+    <button class="prev">&#10094;</button>
+    <button class="next">&#10095;</button>
+  </div>
+
+<div class="floating-buttons">
+  <button>
+    <img src="telegram.svg" alt="Btn1">
+  </button>
+  <button>
+    <img src="lc.jpg" alt="Btn2" href="javascript:void(0)">
+  </button>
+</div>
+
+<style>
+.floating-buttons {
+  position: center;
+  bottom: 15px;
+  right: 15px;
+  display: flex;
+  gap: 8px; /* jarak antar tombol */
+}
+
+.floating-buttons button {
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 20%;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.floating-buttons img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+</style>
+
+<!-- Start of LiveChat (www.livechat.com) code -->
+<script>
+    window.__lc = window.__lc || {};
+    window.__lc.license = 19273842;
+    window.__lc.integration_name = "manual_channels";
+    window.__lc.product_name = "livechat";
+    ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
+</script>
+<noscript><a href="https://www.livechat.com/chat-with/19273842/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+<!-- End of LiveChat code -->
+
+
+<script>
+  const gameGrid = document.getElementById("gameGrid");
+  const searchInput = document.getElementById("searchInput");
+  let selectedProvider = "pgsoft";
+
+  // Data games manual urut Game 1 - Game 200 (50 tiap provider)
+  const games = {
+    pgsoft: [
+{ name: "Mahjong Ways 1", img: "1.jpg", percent: 98 },
+  { name: "Mahjong Ways 2", img: "2.jpg", percent: 99 },
+  { name: "Wild Bounty S...", img: "3.jpg", percent: 85 },
+  { name: "Jurassic Kingdom", img: "4.jpg", percent: 82 },
+  { name: "Wild Bandito", img: "5.jpg", percent: 91 },
+  { name: "Treasure OF A...", img: "6.jpg", percent: 32 },
+  { name: "Queen Of Boun..", img: "7.jpg", percent: 66 },
+  { name: "Lucky Neko", img: "8.jpg", percent: 70 },
+  { name: "Captain'S Bounty", img: "9.jpg", percent: 01 },
+  { name: "Leprechaun Riches", img: "10.jpg", percent: 92 },
+
+  { name: "Diness Frenz...", img: "11.jpg", percent: 22 },
+  { name: "Dead Man's Ri...", img: "12.jpg", percent: 43 },
+  { name: "Grafiti Rush", img: "13.jpg", percent: 17 },
+  { name: "Jack The Gi...", img: "14.jpg", percent: 95 },
+  { name: "Museum Mistery", img: "15.jpg", percent: 48 },
+  { name: "Rio Fantasia", img: "16.jpg", percent: 62 },
+  { name: "Geisha's Rev... ", img: "17.jpg", percent: 83 },
+  { name: "Dragon Hatch", img: "18.jpg", percent: 80 },
+  { name: "Galaxy Miner", img: "19.jpg", percent: 77 },
+  { name: "Dragons Treausere Qu...", img: "20.jpg", percent: 23 },
+  
+  { name: "Sweet Binanza X...", img: "21.jpg", percent: 41 },
+  { name: "Mahjong Wins 3", img: "22.jpg", percent: 76 },
+  { name: "Starlight Princess 10...", img: "23.jpg", percent: 58 },
+  { name: "Aztec Games", img: "24.jpg", percent: 89 },
+  { name: "Gets Of Gato..", img: "25.jpg", percent: 95 },
+  { name: "Gates Of Olym...", img: "26.jpg", percent: 62 },
+  { name: "Mahjong Wins 2", img: "27.jpg", percent: 37 },
+  { name: "Mahjong Wins", img: "28.jpg", percent: 81 },
+  { name: "Wild W...", img: "29.jpg", percent: 54 },
+  { name: "Rujak Bonanza", img: "30.jpg", percent: 72 },
+
+  { name: "Sweet Bonanza Sup...", img: "31.jpg", percent: 19 },
+  { name: "Starlight Princess", img: "32.jpg", percent: 97 },
+  { name: "Gates Of Olym...", img: "33.jpg", percent: 44 },
+  { name: "Gates Of Gat...", img: "34.jpg", percent: 88 },
+  { name: "Wishdom Of At...", img: "35.jpg", percent: 92 },
+  { name: "Sweet Bonqnza 10...", img: "36.jpg", percent: 63 },
+  { name: "Gates Of Olym...", img: "37.jpg", percent: 55 },
+  { name: "Sweet Bonanza", img: "38.jpg", percent: 83 },
+  { name: "Sugar Rush 10...", img: "39.jpg", percent: 68 },
+  { name: "Gates Of Olym...", img: "40.jpg", percent: 74 },
+
+{ name: "Crash Tauchdown", img: "crash8.jpg", percent: "No Data" },
+  { name: "kick It M...", img: "crash1.jpg", percent: "No Data" },
+  { name: "Cash Plane 50...", img: "crash2.jpg", percent: "No Data" },
+  { name: "Spaceman", img: "crash3.jpg", percent: "No Data" },
+  { name: "Crash Pocket", img: "crash4.jpg", percent: "No Data" },
+  { name: "Big Bass", img: "crash5.jpg", percent: "No Data" },
+  { name: "High Flyer", img: "crash6.jpg", percent: "No Data" },
+  { name: "Avia Rush", img: "crash7.jpg", percent: "No Data" },
+
+    ]
+  };
+
+  function getBarColor(percent) {
+    if (percent <= 40) return "red";
+    if (percent <= 69) return "yellow";
+    return "limegreen";
+  }
+
+  function renderGames(provider, keyword = "") {
+    gameGrid.innerHTML = "";
+    games[provider]
+      .filter(game => game.name.toLowerCase().includes(keyword.toLowerCase()))
+      .forEach(game => {
+        const card = document.createElement("div");
+        card.classList.add("game-card");
+
+        const barId = "bar-" + Math.random().toString(36).substr(2, 9);
+
+        card.innerHTML = `
+          <img src="${game.img}" alt="${game.name}">
+          <div class="game-name">${game.name}</div>
+          <div class="progress-container">
+            <div id="${barId}" class="progress-bar" style="background:${getBarColor(game.percent)}"></div>
+          </div>
+          <div class="progress-text">${game.percent}%</div>
+        `;
+        gameGrid.appendChild(card);
+
+        requestAnimationFrame(() => {
+          document.getElementById(barId).style.width = game.percent + "%";
+        });
+      });
+  }
+  
+      function openLiveChat() {
+    if (window.LiveChatWidget) {
+      LiveChatWidget.call("maximize"); // buka jendela chat
+    } else {
+      alert("LiveChat belum siap, coba beberapa detik lagi.");
+    }
+  }
+
+  // Ganti provider
+  document.querySelectorAll(".provider-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".provider-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      selectedProvider = btn.dataset.provider;
+      renderGames(selectedProvider, searchInput.value);
+    });
+  });
+
+  // Ganti waktu
+  document.querySelectorAll(".time-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".time-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    });
+  });
+
+  // Search
+  searchInput.addEventListener("input", () => {
+    renderGames(selectedProvider, searchInput.value);
+  });
+
+  // Tampilkan awal
+  renderGames(selectedProvider);
+  
+      // SLIDER SCRIPT
+    const slides = document.querySelector('.slides');
+    const images = document.querySelectorAll('.slides img');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+
+    let index = 0;
+
+    function showSlide(i) {
+      index = (i + images.length) % images.length;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    function nextSlide() { showSlide(index + 1); }
+    function prevSlide() { showSlide(index - 1); }
+
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    // Auto jalan 4 detik
+    setInterval(nextSlide, 4000);
+</script>
+
+</body>
+</html>

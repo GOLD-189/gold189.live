@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Penarikan - BETBEBAS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {font-family: Arial, sans-serif; background:#f7f7f7; color:#111;}
+
+    :root {
+      --topbar-height: 70px;
+      --navbar-height: 70px;
+    }
+
+/* SIDEBAR */
+.overlay {
+  position:fixed;
+  top:0; left:0; width:100%; height:100%;
+  background: rgba(0,0,0,0.6);
+  z-index:1999;
+  display:none;
+}
+.overlay.active {display:block;}
+.sidebar {
+  position:fixed; top:0; left:-100%; width:90%; max-width:380px;
+  height:100%; background:#2a2a2a; transition:0.35s; z-index:2000;
+  overflow-y:auto; padding-bottom:30px;
+}
+.sidebar.active {left:0;}
+.sidebar-header {
+  background:#1f1f1f;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.sidebar-header img {height:40px;}
+.close-btn {font-size:38px; cursor:pointer; color:#fff;}
+.menu-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  padding:16px;
+}
+.menu-item {
+  background:#3a3a3a;
+  border-radius:8px;
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-size:15px;
+  text-decoration:none;
+  color:#fff;
+  transition:0.2s;
+}
+.menu-item:hover {background:gold; color:#111;}
+.menu-item i {font-size:26px;}
+.menu-item.whatsapp i {color:#25D366;}
+.menu-item.telegram i {color:#229ED9;}
+.menu-item.rtp i {color:#ff3b30;}
+.menu-item.turnamen i {color:gold;}
+
+
+    /* TOPBAR */
+    .topbar {
+      background:#222;
+      height: var(--topbar-height);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:16px 19px;
+      position:fixed;
+      top:0; left:0; right:0;
+      z-index:1000;
+    }
+    .menu-icon {
+      font-size:40px;
+      cursor:pointer;
+      background: gold;
+      padding:5px 10px;
+      border-radius:5px;
+      color:white;
+    }
+    .logo {height:57px;}
+
+    /* NAVBAR SCROLL */
+    .scroll-menu {
+      position: fixed;
+      top: var(--topbar-height);
+      left: 0;
+      right: 0;
+      background: #333;
+      white-space: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      z-index: 999;
+    }
+    .scroll-menu::-webkit-scrollbar {display: none;}
+    .scroll-menu a {
+      display: inline-block;
+      padding: 14px 18px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      transition: background 0.25s ease, transform 0.2s ease;
+    }
+    .scroll-menu a:hover {
+      background: gold;
+      color: #111;
+      transform: scale(1.05);
+      border-radius: 6px;
+    }
+
+    /* KONTEN */
+    .container {
+      max-width:480px;
+      margin:0 auto;
+      margin-top: calc(var(--topbar-height) + 60px);
+      margin-bottom: calc(var(--navbar-height) + 20px);
+      background:#fff;
+      padding:20px;
+      border-radius:10px;
+      box-shadow:0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    h2 {margin-bottom:15px; color: gold;}
+    .saldo {font-size:18px; margin-bottom:20px; display:flex; align-items:center; justify-content:space-between;}
+    .bank-box {border:1px solid #ccc; border-radius:8px; padding:15px; margin-bottom:20px; display:flex; align-items:center; gap:12px;}
+    .bank-box img {height:40px;}
+    .bank-info {font-size:14px;}
+    .btn-amounts {display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:15px;}
+    .btn-amounts button {padding:10px; border:none; border-radius:6px; background:#eee; cursor:pointer; font-weight:bold;}
+    .btn-amounts button:hover {background:#dcdcdc;}
+    input[type="number"] {width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; margin-bottom:15px;}
+    .btn {width:100%; background: gold; color:#fff; padding:12px; border:none; border-radius:6px; font-size:16px; cursor:pointer;}
+    .btn:hover {background: gold;}
+
+    /* NAVBAR BAWAH */
+    .navbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: var(--navbar-height);
+      background: linear-gradient(to right, orange, gold);
+      display: flex;
+      justify-content: space-around;
+      padding: 15px 0;
+      z-index: 1000;
+    }
+    .nav-item {
+      text-align: center;
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: bold;
+    }
+    .nav-item i {
+      font-size: 24px;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    /* TOAST NOTIFICATION */
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 20px;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: bold;
+      opacity: 0;
+      transform: translateX(100%);
+      transition: all 0.4s ease;
+      z-index: 2000;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .toast.error { background: #e74c3c; }
+    .toast.success { background: #27ae60; }
+  </style>
+</head>
+<body>
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <i class="fas fa-bars menu-icon"></i>
+    <img src="logo.png" alt="Logo" class="logo">
+    <div style="width:40px"></div>
+  </div>
+
+  <!-- NAVBAR SCROLL -->
+  <div class="scroll-menu">
+    <a href="sports.html">Sports</a>
+    <a href="poker.html">Poker</a>
+    <a href="casino.html">Casino</a>
+    <a href="togel.html">Togel</a>
+    <a href="slot.html">Slot</a>
+    <a href="fishing.html">Fishing</a>
+    <a href="crash.html">New Crash</a>
+    <a href="sabung Ayam.html">Sabung Ayam</a>
+  </div>
+
+  <div class="container">
+    <h2>Penarikan</h2>
+    <div class="saldo">
+      <span>Dompet Utama</span>
+      <strong id="saldoText">Rp 0</strong>
+    </div>
+
+    <p><b>Pilih Rekening Penarikan:</b></p>
+    <div class="bank-box">
+      <img src="bank.png" alt="Bank" id="bankLogo">
+      <div class="bank-info">
+        <div id="namaRekening">-</div>
+        <div id="bankName">-</div>
+        <div id="noRekening">-</div>
+      </div>
+    </div>
+
+    <p><b>Total Penarikan:</b></p>
+    <div class="btn-amounts">
+      <button onclick="setAmount(50000)">50.000</button>
+      <button onclick="setAmount(100000)">100.000</button>
+      <button onclick="setAmount(200000)">200.000</button>
+      <button onclick="setAmount(250000)">250.000</button>
+      <button onclick="setAmount(500000)">500.000</button>
+      <button onclick="setAmount(1000000)">1.000.000</button>
+    </div>
+
+    <input type="number" id="withdrawAmount" placeholder="Masukkan nominal penarikan">
+    <button class="btn" onclick="withdraw()">Penarikan</button>
+  </div>
+
+  <!-- NAVBAR BAWAH -->
+  <div class="navbar">
+    <a href="ui.html" class="nav-item"><i class="fas fa-home"></i>Beranda</a>
+    <a href="dompet.html" class="nav-item"><i class="fas fa-wallet"></i>Deposit</a>
+    <a href="javascript:void(0)" class="nav-item" onclick="openLiveChat()"><i class="fas fa-comments"></i>Live Chat</a>
+    <a href="akun.html" class="nav-item"><i class="fas fa-user"></i>Akun</a>
+  </div>
+
+
+  <!-- OVERLAY -->
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <img src="logo.png" alt="Peluang77">
+      <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <div class="guide"><i class="fas fa-lightbulb"></i> Panduan Pemain</div>
+    <div class="menu-grid">
+      <a href="index.html" class="menu-item"><i class="fas fa-sign-out-alt"></i>Keluar</a>
+      <a href="akun.html" class="menu-item"><i class="fas fa-user"></i>Akun</a>
+      <a href="transaksi.html" class="menu-item"><i class="fas fa-file-invoice"></i>Riwayat TRX</a>
+      <a href="pengumuman.html" class="menu-item"><i class="fas fa-bullhorn"></i>Pengumuman</a>
+      <a href="javascript:void(0)" class="menu-item" onclick="showNotif('Anda Harus Menggunakan PC/Laptop.')">
+        <i class="fas fa-desktop"></i>Versi PC
+      </a>
+      <a href="javascript:void(0)" class="menu-item" onclick="showNotif('Aplikasi Tidak Tersedia.')">
+        <i class="fas fa-download"></i>Download APK
+      </a>
+      <a href="https://wa.me/628123456789" target="_blank" class="menu-item whatsapp"><i class="fab fa-whatsapp"></i>Whatsapp</a>
+      <a href="https://t.me/@JakaGacor" target="_blank" class="menu-item telegram"><i class="fab fa-telegram"></i>Telegram</a>
+      <a href="rtp.html" class="menu-item rtp"><i class="fas fa-percentage"></i>RTP Slot</a>
+      <a href="#turnamen" class="menu-item turnamen"><i class="fas fa-trophy"></i>Turnamen</a>
+    </div>
+  </div>
+
+
+  <!-- TOAST -->
+  <div id="toast" class="toast"></div>
+<script>
+  function toggleSidebar() {
+  document.getElementById("sidebar").classList.toggle("active");
+  document.getElementById("overlay").classList.toggle("active");
+}
+  
+  const lastLogin = localStorage.getItem("lastLogin");
+  let saldo = 0;
+
+  if(lastLogin){
+    const user = JSON.parse(localStorage.getItem("user_"+lastLogin));
+    saldo = parseInt(localStorage.getItem("saldo_"+lastLogin)) || 0;
+
+    document.getElementById("saldoText").innerText = "Rp " + saldo.toLocaleString();
+    document.getElementById("namaRekening").innerText = user.namaRekening;
+    document.getElementById("bankName").innerText = user.bank;
+    document.getElementById("noRekening").innerText = user.rekening;
+  }
+
+  function setAmount(val){
+    document.getElementById("withdrawAmount").value = val;
+  }
+
+  function showToast(message, type="error") {
+    const toast = document.getElementById("toast");
+    toast.innerText = message;
+    toast.className = "toast " + type + " show";
+    setTimeout(() => { toast.className = "toast " + type; }, 3000);
+  }
+
+  function withdraw(){
+    const amount = parseInt(document.getElementById("withdrawAmount").value);
+
+    if(!amount || amount < 50000){
+      showToast("Minimal withdraw 50.000!", "error");
+      return;
+    }
+    if(amount % 50000 !== 0){
+      showToast("Nominal harus kelipatan 50.000", "error");
+      return;
+    }
+    if(amount > saldo){
+      showToast("Saldo anda tidak mencukupi!", "error");
+      return;
+    }
+
+    saldo -= amount;
+    localStorage.setItem("saldo_"+lastLogin, saldo);
+    document.getElementById("saldoText").innerText = "Rp " + saldo.toLocaleString();
+
+    showToast("Penarikan Rp " + amount.toLocaleString() + " berhasil diproses!", "success");
+  }
+
+  function openLiveChat(){
+    showToast("LiveChat belum siap.", "error");
+  }
+</script>
+</body>
+</html>

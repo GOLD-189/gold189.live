@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BETBEBAS</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  *{margin:0; padding:0; box-sizing:border-box;}
+  body{font-family:Arial,sans-serif; background:white; color:#fff; padding-top:160px;}
+
+  /* TOPBAR */
+  .topbar{background:#222; display:flex; align-items:center; justify-content:space-between; padding:16px 19px; position:fixed; top:0; left:0; right:0; z-index:1000;}
+  .menu-icon{font-size:40px; cursor:pointer; background:red; padding:5px 10px; border-radius:5px; color:white;}
+  .logo{height:57px;}
+
+  /* SCROLL MENU */
+  .scroll-menu{position:fixed; top:82px; left:0; right:0; background:#333; white-space:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; z-index:999;}
+  .scroll-menu::-webkit-scrollbar{display:none;}
+  .scroll-menu a{display:inline-block; padding:14px 18px; color:#fff; text-decoration:none; font-size:16px; transition:background 0.25s ease, transform 0.2s ease;}
+  .scroll-menu a:hover{background:gold; color:#111; transform:scale(1.05); border-radius:6px;}
+
+  /* FORM CONTAINER */
+/* FORM CONTAINER */
+.container{
+  padding:25px; 
+  max-width:440px; 
+  margin:40px auto; 
+  background:#fff;        /* ⬅️ ubah ke putih */
+  border-radius:10px; 
+  border:1px solid #ddd;  /* ⬅️ border lebih halus */
+  box-shadow:0 0 12px rgba(0,0,0,0.1);
+}
+label{
+  display:block; 
+  margin-top:15px; 
+  font-weight:normal;     /* ⬅️ sesuai foto bukan bold */
+  color:#000;             /* ⬅️ teks hitam */
+  font-size:15px;
+}
+input{
+  width:100%; 
+  padding:12px 14px; 
+  margin-top:6px; 
+  border:1px solid #ccc;  /* ⬅️ border abu terang */
+  border-radius:6px; 
+  background:#fff;        /* ⬅️ input putih */
+  color:#000;             /* ⬅️ teks hitam */
+  font-size:15px; 
+  outline:none; 
+  box-sizing:border-box;
+}
+input:focus{
+  border-color:GOLD;   /* ⬅️ fokus ungu */
+  box-shadow:0 0 6px rgba(90,62,242,0.5);
+}
+button{
+  margin-top:20px; 
+  width:100%; 
+  padding:12px; 
+  background:red;     /* ⬅️ warna ungu */
+  color:#fff; 
+  border:none; 
+  border-radius:6px; 
+  font-size:16px; 
+  font-weight:normal; 
+  cursor:pointer;
+  transition:0.2s ease;
+}
+button:hover{
+  background:Gold;     /* ⬅️ lebih gelap saat hover */
+  transform:scale(1.01);
+}
+.note{
+  font-size:12px; 
+  color:#666;             /* ⬅️ abu gelap */
+  margin-top:6px;
+}
+.password-container {
+  position: relative;
+  width: 100%;
+}
+.password-container input {
+  width: 100%;
+  padding: 12px 40px 12px 14px; /* ⬅️ tambahkan padding kanan biar ada ruang untuk icon */
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  color: #000;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+.password-container i {
+  position: absolute;
+  right: 12px;        /* ⬅️ icon nempel kanan dalam input */
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+  font-size: 18px;
+}
+
+  /* SIDEBAR */
+  .overlay{position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1999; display:none;}
+  .overlay.active{display:block;}
+  .sidebar{position:fixed; top:0; left:-100%; width:90%; max-width:380px; height:100%; background:#2a2a2a; transition:left 0.35s ease; z-index:2000; overflow-y:auto; padding-bottom:30px;}
+  .sidebar.active{left:0;}
+  .sidebar-header{background:#1f1f1f; padding:15px; display:flex; justify-content:space-between; align-items:center;}
+  .sidebar-header img{height:40px;}
+  .close-btn{font-size:38px; cursor:pointer; color:#fff;}
+  .sidebar .guide{background:#3a3a3a; padding:12px; font-size:16px; border-bottom:1px solid #444; display:flex; align-items:center; gap:8px;}
+  .sidebar .guide i{color:gold;}
+  .sidebar .menu-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:16px;}
+  .menu-item{background:#3a3a3a; border-radius:8px; padding:20px 10px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; font-size:15px; transition:transform 0.2s ease, background 0.2s ease; text-decoration:none; color:#fff;}
+  .menu-item i{font-size:26px;}
+  .menu-item:hover{transform:scale(1.05); background:#505050;}
+  .menu-item.whatsapp i{color:#25D366;}
+  .menu-item.telegram i{color:#229ED9;}
+  .menu-item.rtp i{color:#ff3b30;}
+  .menu-item.turnamen i{color:gold;}
+
+  /* NOTIFICATION */
+  .notification-container{position:fixed; top:70px; right:20px; display:flex; flex-direction:column; gap:10px; z-index:3000;}
+  .notification{background:#e63946; color:white; padding:12px 18px; border-radius:6px; font-size:15px; min-width:240px; max-width:320px; box-shadow:0 4px 8px rgba(0,0,0,0.3); opacity:0; transform:translateX(100%); animation:slideIn 0.3s forwards;}
+  @keyframes slideIn{to{opacity:1; transform:translateX(0);}}
+  @keyframes slideOut{to{opacity:0; transform:translateX(100%);}}
+
+  /* NAVBAR BAWAH */
+  .navbar{position:fixed; bottom:0; left:0; right:0; background:linear-gradient(to right, red, gold, red); display:flex; justify-content:space-around; padding:15px 0; z-index:1000;}
+  .nav-item{text-align:center; color:white; text-decoration:none; font-size:15px; font-weight:bold;}
+  .nav-item i{font-size:24px; display:block; margin-bottom:5px;}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <i class="fas fa-bars menu-icon" onclick="toggleSidebar()"></i>
+  <img src="logo.png" alt="Logo" class="logo">
+  <div style="width:40px"></div>
+</div>
+
+  <div class="scroll-menu">
+    <a href="sports.html">Sports</a>
+    <a href="poker.html">Poker</a>
+    <a href="casino.html">Casino</a>
+    <a href="togel.html">Togel</a>
+    <a href="slot.html">Slot</a>
+    <a href="fishing.html">Fishing</a>
+    <a href="crash.html">New Crash</a>
+    <a href="arcade.html">New Arcade</a>
+    <a href="sabung Ayam.html">Sabung A</a>
+  </div>
+
+<!-- FORM AKUN -->
+<div class="container">
+  <label>Nama Lengkap</label>
+  <input type="text" id="fullName" disabled>
+  <label>No Hp</label>
+  <input type="text" id="phone" disabled>
+  <label>Email</label>
+  <input type="email" id="email">
+  <div class="note">*Jika email tidak terisi saat pendaftaran, hubungi Customer Service untuk mendaftar email.</div>
+  <button id="saveProfile">Simpan</button>
+
+  <label>Kata Sandi Saat Ini</label>
+  <div class="password-container">
+    <input type="password" id="currentPassword">
+    <i class="fas fa-eye" onclick="togglePassword('currentPassword', this)"></i>
+  </div>
+  <label>Kata Sandi Baru</label>
+  <div class="password-container">
+    <input type="password" id="newPassword">
+    <i class="fas fa-eye" onclick="togglePassword('newPassword', this)"></i>
+  </div>
+  <label>Konfirmasi Kata Sandi</label>
+  <div class="password-container">
+    <input type="password" id="confirmPassword">
+    <i class="fas fa-eye" onclick="togglePassword('confirmPassword', this)"></i>
+  </div>
+  <button id="changePassword">Simpan</button>
+</div>
+
+<!-- SIDEBAR -->
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <img src="logo.png" alt="Logo">
+    <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+  </div>
+  <div class="guide"><i class="fas fa-lightbulb"></i> Panduan Pemain</div>
+  <div class="menu-grid">
+    <a href="daftar.html" class="menu-item"><i class="fas fa-sign-out-alt"></i>Keluar</a>
+    <a href="akun.html" class="menu-item"><i class="fas fa-user"></i>Akun</a>
+    <a href="#promo" class="menu-item"><i class="fas fa-gift"></i>Promosi</a>
+    <a href="pengumuman.html" class="menu-item"><i class="fas fa-bullhorn"></i>Pengumuman</a>
+    <a href="javascript:void(0)" class="menu-item" onclick="showNotif('Anda Harus Menggunakan PC/Laptop.')"><i class="fas fa-desktop"></i>Versi PC</a>
+    <a href="javascript:void(0)" class="menu-item" onclick="showNotif('Aplikasi Tidak Tersedia.')"><i class="fas fa-download"></i>Download APK</a>
+    <a href="https:wa.me/62811140206" target="_blank" class="menu-item whatsapp"><i class="fab fa-whatsapp"></i>Whatsapp</a>
+    <a href="https://t.me/@JakaGacor" target="_blank" class="menu-item telegram"><i class="fab fa-telegram"></i>Telegram</a>
+    <a href="rtp.html" class="menu-item rtp"><i class="fas fa-percentage"></i>RTP Slot</a>
+    <a href="#turnamen" class="menu-item turnamen"><i class="fas fa-trophy"></i>Turnamen</a>
+  </div>
+</div>
+
+<!-- NOTIF -->
+<div class="notification-container" id="notification-container"></div>
+
+<!-- NAVBAR BAWAH -->
+<div class="navbar">
+  <a href="ui.html" class="nav-item"><i class="fas fa-home"></i>Beranda</a>
+  <a href="dompet.html" class="nav-item"><i class="fas fa-wallet"></i>Deposit</a>
+  <a href="javascript:void(0)" class="nav-item" onclick="openLiveChat()"><i class="fas fa-comments"></i>Live Chat</a>
+  <a href="akun.html" class="nav-item"><i class="fas fa-user"></i>Akun</a>
+</div>
+
+<script>
+  // Load data user
+  const lastLogin = localStorage.getItem('lastLogin');
+  if(lastLogin){
+    const userData = JSON.parse(localStorage.getItem('user_' + lastLogin));
+    document.getElementById('fullName').value = userData.namaRekening || '';
+    document.getElementById('phone').value = userData.phone || '';
+    document.getElementById('email').value = userData.email || '';
+  }
+
+  document.getElementById('saveProfile').addEventListener('click',()=>{
+    if(!lastLogin) return alert('Tidak ada user login');
+    const email=document.getElementById('email').value;
+    const userData=JSON.parse(localStorage.getItem('user_'+lastLogin));
+    userData.email=email;
+    localStorage.setItem('user_'+lastLogin, JSON.stringify(userData));
+    alert('Profile berhasil disimpan!');
+  });
+
+  document.getElementById('changePassword').addEventListener('click',()=>{
+    if(!lastLogin) return alert('Tidak ada user login');
+    const current=document.getElementById('currentPassword').value;
+    const newPass=document.getElementById('newPassword').value;
+    const confirm=document.getElementById('confirmPassword').value;
+    const userData=JSON.parse(localStorage.getItem('user_'+lastLogin));
+    if(current!==userData.password) return alert('Kata sandi saat ini salah!');
+    if(newPass.length<4) return alert('Kata sandi baru minimal 4 karakter');
+    if(newPass!==confirm) return alert('Kata sandi baru dan konfirmasi tidak cocok');
+    userData.password=newPass;
+    localStorage.setItem('user_'+lastLogin, JSON.stringify(userData));
+    alert('Kata sandi berhasil diubah!');
+    document.getElementById('currentPassword').value='';
+    document.getElementById('newPassword').value='';
+    document.getElementById('confirmPassword').value='';
+  });
+
+  function togglePassword(id, icon){
+    const input=document.getElementById(id);
+    if(input.type==='password'){
+      input.type='text'; icon.classList.remove('fa-eye'); icon.classList.add('fa-eye-slash');
+    }else{
+      input.type='password'; icon.classList.remove('fa-eye-slash'); icon.classList.add('fa-eye');
+    }
+  }
+
+  function toggleSidebar(){
+    document.getElementById('sidebar').classList.toggle('active');
+    document.getElementById('overlay').classList.toggle('active');
+  }
+
+  function showNotif(message){
+    const container=document.getElementById('notification-container');
+    if(container.children.length>=5) container.removeChild(container.firstChild);
+    const notif=document.createElement('div'); notif.classList.add('notification'); notif.innerText=message;
+    container.appendChild(notif);
+    setTimeout(()=>{
+      notif.style.animation='slideOut 0.3s forwards';
+      setTimeout(()=>notif.remove(),300);
+    },4000);
+  }
+
+  function openLiveChat(){
+    if(window.LiveChatWidget && LiveChatWidget.call){
+      LiveChatWidget.call("maximize");
+    } else {
+      const interval = setInterval(()=>{
+        if(window.LiveChatWidget && LiveChatWidget.call){
+          LiveChatWidget.call("maximize");
+          clearInterval(interval);
+        }
+      },500);
+    }
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Masuk - GOLD 189 </title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #111, #222, #111);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      width: 100%;
+      background: #222;
+      padding: 15px 0;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+    .topbar img { height: 60px; }
+
+    .form-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px 10px;
+    }
+    .form {
+      background: #222;
+      padding: 25px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.7);
+      display: flex;
+      flex-direction: column;
+    }
+    .form h2 { text-align: center; margin-bottom: 15px; }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background: red;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+      color: white;
+    }
+    button:hover { background: orange; }
+
+    .signup-link {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 15px;
+    }
+    .signup-link a { color: red; font-weight: bold; text-decoration: none; }
+    .signup-link a:hover { text-decoration: underline; }
+
+    .notif-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 1000;
+      max-width: 300px;
+    }
+    .notif {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 20px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      opacity: 0;
+      transform: translateX(100%);
+      animation: slideIn 0.5s forwards;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    .notif.error { background: crimson; }
+    .notif.success { background: seagreen; }
+    .notif i { font-size: 18px; }
+
+    @keyframes slideIn { to { opacity: 1; transform: translateX(0); } }
+    @keyframes fadeOut { to { opacity: 0; transform: translateX(100%); } }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="topbar">
+    <img src="logo.png" alt="Logo">
+  </div>
+
+  <div class="form-container">
+    <div class="form">
+      <h2>Masuk</h2>
+      <input type="text" id="usernameInput" placeholder="Masukkan Username" required>
+      <input type="password" id="passwordInput" placeholder="Masukkan Password" required>
+      <button onclick="login()">Masuk</button>
+      <div class="signup-link">
+        <span>Belum punya akun? <a href="daftar.html">Klik di sini</a></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="notif-container" id="notifContainer"></div>
+
+  <script>
+    function showNotif(msg, type = "error") {
+      const container = document.getElementById("notifContainer");
+      if (container.children.length >= 5) { container.removeChild(container.firstChild); }
+      const notif = document.createElement("div");
+      notif.className = "notif " + type;
+      notif.innerHTML = (type === "success" ? '<i class="fa fa-check-circle"></i>' : '<i class="fa fa-times-circle"></i>') + msg;
+      container.appendChild(notif);
+      setTimeout(() => {
+        notif.style.animation = "fadeOut 0.5s forwards";
+        setTimeout(() => { if (notif.parentNode) notif.parentNode.removeChild(notif); }, 500);
+      }, 3000);
+    }
+
+    function login() {
+      const username = document.getElementById("usernameInput").value.trim();
+      const password = document.getElementById("passwordInput").value;
+
+      if (username === "" || password === "") {
+        showNotif("Username & Password wajib diisi!", "error");
+        return;
+      }
+
+      // Ambil data dari localStorage
+      const userData = localStorage.getItem("user_" + username);
+      if (!userData) {
+        showNotif("Akun tidak ditemukan!", "error");
+        return;
+      }
+
+      const user = JSON.parse(userData);
+      if (user.password === password) {
+        // Simpan info user terakhir login
+        localStorage.setItem("lastLogin", username);
+
+        showNotif("Login berhasil!", "success");
+        setTimeout(() => { window.location.href = "ui.html"; }, 1500);
+      } else {
+        showNotif("Password salah!", "error");
+      }
+    }
+  </script>
+</body>
+</html>

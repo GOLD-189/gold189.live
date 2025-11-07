@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Koleksi Game</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+    /* Tambahkan di CSS */
+.content {
+  margin-top: 150px; /* geser konten ke bawah, sesuaikan tinggi topbar + scroll menu */
+  padding: 20px;
+}
+        /* TOPBAR */
+    .topbar {
+      background: #222;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 19px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+    .menu-icon {
+      font-size: 40px;
+      cursor: pointer;
+      background: red;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: white;
+    }
+    .logo {height: 50px;}
+
+    /* NAVBAR SCROLL */
+    .scroll-menu {
+      position: fixed;
+      top: 82px;
+      left: 0;
+      right: 0;
+      background: #333;
+      white-space: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      z-index: 999;
+    }
+    .scroll-menu::-webkit-scrollbar {display: none;}
+    .scroll-menu a {
+      display: inline-block;
+      padding: 14px 18px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      transition: background 0.25s ease, transform 0.2s ease;
+    }
+    .scroll-menu a:hover {
+      background: red;
+      color: #111;
+      transform: scale(1.05);
+      border-radius: 6px;
+    }
+        /* SIDEBAR */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 1999;
+      display: none;
+    }
+    .overlay.active {display: block;}
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 90%;
+      max-width: 380px;
+      height: 100%;
+      background: #2a2a2a;
+      transition: left 0.35s ease;
+      z-index: 2000;
+      overflow-y: auto;
+      padding-bottom: 30px;
+    }
+    .sidebar.active {left: 0;}
+    .sidebar-header {
+      background: #1f1f1f;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .sidebar-header img {height: 40px;}
+    .close-btn {font-size: 38px; cursor: pointer; color: #fff;}
+    .sidebar .guide {
+      background: #3a3a3a;
+      padding: 12px;
+      font-size: 16px;
+      border-bottom: 1px solid #444;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sidebar .guide i {color: red;}
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 16px;
+    }
+    .menu-item {
+      background: #3a3a3a;
+      border-radius: 8px;
+      padding: 20px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 15px;
+      transition: transform 0.2s ease, background 0.2s ease;
+      text-decoration: none;
+      color: #fff;
+    }
+    .menu-item i {font-size: 26px;}
+    .menu-item:hover {transform: scale(1.05); background: #505050;}
+    .menu-item.whatsapp i {color: #25D366;}
+    .menu-item.telegram i {color: #229ED9;}
+    .menu-item.rtp i {color: #ff3b30;}
+    .menu-item.turnamen i {color: gold;}
+
+    /* KONTEN DEMO */
+    .content {
+      margin-top: 20px;
+      padding: 20px;
+    }
+
+    /* NOTIFICATION */
+    .notification-container {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 3000;
+    }
+    .notification {
+      background: #e63946;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 6px;
+      font-size: 15px;
+      min-width: 240px;
+      max-width: 320px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      opacity: 0;
+      transform: translateX(100%);
+      animation: slideIn 0.3s forwards;
+    }
+    @keyframes slideIn {
+      to {opacity: 1; transform: translateX(0);}
+    }
+    @keyframes slideOut {
+      to {opacity: 0; transform: translateX(100%);}
+    }
+    
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #search {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      border: none;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 3 kolom */
+      gap: 15px;
+    }
+    .card {
+      background: #222;
+      border-radius: 10px;
+      overflow: hidden;
+      text-align: center;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      background: #333;
+    }
+    .card img {
+      width: 100%;
+      height:  100px;
+      object-fit: cover;
+    }
+    .card p {
+      padding: 10px;
+      margin: 0;
+      background: #333;
+      font-weight: bold;
+    }
+    
+        .navbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to right, red, gold, red);
+      display: flex;
+      justify-content: space-around;
+      padding: 15px 0;
+      z-index: 1000;
+    }
+
+    .nav-item {
+      text-align: center;
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .nav-item i {
+      font-size: 24px;
+      display: block;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+    <!-- TOPBAR -->
+  <div class="topbar">
+    <i class="fas fa-bars menu-icon" onclick="toggleSidebar()"></i>
+    <img src="logo.png" alt="Logo" class="logo">
+    <div style="width:40px"></div>
+  </div>
+
+  <div class="scroll-menu">
+    <a href="sports.html">Sports</a>
+    <a href="poker.html">Poker</a>
+    <a href="casino.html">Casino</a>
+    <a href="togel.html">Togel</a>
+    <a href="slot.html">Slot</a>
+    <a href="fishing.html">Fishing</a>
+    <a href="crash.html">New Crash</a>
+
+    <a href="sabung Ayam.html">Sabung Ayam</a>
+  </div>
+  
+  
+  
+<!-- Konten -->
+<div class="content">
+  <h1>Daftar Game</h1>
+  <input type="text" id="search" placeholder="Cari game...">
+
+  <div class="grid" id="gameGrid">
+    <!-- card game di sini -->
+    
+        <!-- Contoh kotak game, silakan copy-paste sampai 80 -->
+    <div class="card" onclick="location.href='https://m.nkryu17dc.com/65/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=11deletn%3Dg2vjf1vuc%3Dnzx&__hv=2fMEUCIQDAEe0ipj1iclbrwKPLkWWJMDse5XEILsracq8AsIXPzQIgDoTBSMeQv%2BmbDjkdoKv%2BpxyqNVY6vlCxDZux6xa79UE%3D'">
+      <img src="fishing1.jpg" alt="Game 1">
+      <p>Fishing All-Star</p>
+    </div>
+
+    <div class="card" onclick="location.href='https://m.nkryu17dc.com/74/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=19lmtmbv%3Do2drn1dck%3Dvhf&__hv=2fMEUCIQDAEe0ipj1iclbrwKPLkWWJMDse5XEILsracq8AsIXPzQIgDoTBSMeQv%2BmbDjkdoKv%2BpxyqNVY6vlCxDZux6xa79UE%3D'">
+      <img src="fishing2.jpg" alt="Game 2">
+      <p>One Stick F...</p>
+    </div>
+
+    <div class="card" onclick="location.href='https://m.nkryu17dc.com/135/index.html?ot=5DAB3F98-E8C0-4456-82F2-845C1A67E1DF&l=id&btt=1&ops=192d02c4ad0a7061892329a0ffaa22d5959784504akunanda959784504jxyaa&or=19lmtmbv%3Do2drn1dck%3Dvhf&__hv=2fMEYCIQCuSwSpKg%2Ftq6ezhJXTxc%2B14iXfiak4Gb4F2BCA8EnF3AIhAKIT8h1aXHzd%2B%2FV1PnmExaxNtpJ1bLhuZDsbzowAOEZj'">
+      <img src="fishing3.jpg" alt="Game 3">
+      <p>Fishing God</p>
+    </div>
+
+    <div class="card" onclick="location.href='game1.html'">
+      <img src="fishing4.jpg" alt="Game 1">
+      <p>Fishing Lagend</p>
+    </div>
+
+    <div class="card" onclick="location.href='game2.html'">
+      <img src="fishing5.jpg" alt="Game 2">
+      <p>One Soot F...</p>
+    </div>
+
+    
+  </div>
+</div>
+
+
+    <!-- lanjutkan sampai 80 -->
+    
+  
+  
+    <!-- OVERLAY -->
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <img src="logo.png" alt="Peluang77">
+      <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+    </div>
+    <div class="guide"><i class="fas fa-lightbulb"></i> Panduan Pemain</div>
+    <div class="menu-grid">
+      <a href="daftar.html" class="menu-item"><i class="fas fa-sign-out-alt"></i>Keluar</a>
+      <a href="akun.html" class="menu-item"><i class="fas fa-user"></i>Akun</a>
+      <a href="#promo" class="menu-item"><i class="fas fa-gift"></i>Promosi</a>
+      <a href="pengumuman.html" class="menu-item"><i class="fas fa-bullhorn"></i>Pengumuman</a>
+      <a href="javascript:void(0)" class="menu-item" onclick="showNotif('Anda Harus Menggunakan PC/Laptop.')">
+        <i class="fas fa-desktop"></i>Versi PC
+      </a>
+      <a href="javascript:void(0)" class="menu-item" onclick="showNotif('Aplikasi Tidak Tersedia.')">
+        <i class="fas fa-download"></i>Download APK
+      </a>
+      <a href="https://wa.me/628123456789" target="_blank" class="menu-item whatsapp"><i class="fab fa-whatsapp"></i>Whatsapp</a>
+      <a href="https://t.me/@JakaGacor" target="_blank" class="menu-item telegram"><i class="fab fa-telegram"></i>Telegram</a>
+      <a href="#rtp" class="menu-item rtp"><i class="fas fa-percentage"></i>RTP Slot</a>
+      <a href="#turnamen" class="menu-item turnamen"><i class="fas fa-trophy"></i>Turnamen</a>
+    </div>
+  </div>
+
+  <!-- NOTIFICATION CONTAINER -->
+  <div class="notification-container" id="notification-container"></div>
+
+  <!-- Navbar bawah -->
+  <div class="navbar">
+    <a href="ui.html" class="nav-item"><i class="fas fa-home"></i>Beranda</a>
+    <a href="dompet.html" class="nav-item"><i class="fas fa-wallet"></i>Deposit</a>
+   <a href="javascript:void(0)" class="nav-item" onclick="openLiveChat()">
+  <i class="fas fa-comments"></i>Live Chat
+</a>
+    <a href="akun.html" class="nav-item"><i class="fas fa-user"></i>Akun</a>
+  </div>
+
+
+
+<!-- Start of LiveChat (www.livechat.com) code -->
+<script>
+    window.__lc = window.__lc || {};
+    window.__lc.license = 19273842;
+    window.__lc.integration_name = "manual_channels";
+    window.__lc.product_name = "livechat";
+    ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
+</script>
+<noscript><a href="https://www.livechat.com/chat-with/19273842/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+<!-- End of LiveChat code -->
+
+  <script>
+    // Fungsi search untuk filter game berdasarkan nama
+    document.getElementById("search").addEventListener("keyup", function() {
+      let filter = this.value.toLowerCase();
+      let cards = document.querySelectorAll(".card");
+      cards.forEach(card => {
+        let text = card.innerText.toLowerCase();
+        if (text.includes(filter)) {
+          card.style.display = "";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
+    
+
+    
+    function showNotif(message) {
+      const container = document.getElementById("notification-container");
+      if (container.children.length >= 5) {
+        container.removeChild(container.firstChild);
+      }
+      const notif = document.createElement("div");
+      notif.classList.add("notification");
+      notif.innerText = message;
+      container.appendChild(notif);
+      setTimeout(() => {
+        notif.style.animation = "slideOut 0.3s forwards";
+        setTimeout(() => notif.remove(), 300);
+      }, 4000);
+    }
+
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+      document.getElementById("overlay").classList.toggle("active");
+    }
+
+    // SLIDER SCRIPT
+    const slides = document.querySelector('.slides');
+    const images = document.querySelectorAll('.slides img');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+
+    let index = 0;
+
+    function showSlide(i) {
+      index = (i + images.length) % images.length;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    function nextSlide() { showSlide(index + 1); }
+    function prevSlide() { showSlide(index - 1); }
+
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    // Auto jalan 4 detik
+    setInterval(nextSlide, 4000);
+  </script>
+</body>
+</html>

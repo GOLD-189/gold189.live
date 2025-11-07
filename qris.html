@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nobu bank</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff;
+      color: #222;
+      margin: 0;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      background: #222;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 19px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+    .menu-icon {
+      font-size: 40px;
+      cursor: pointer;
+      background: red;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: white;
+    }
+    .logo {height: 50px;}
+
+    /* NAVBAR SCROLL */
+    .scroll-menu {
+      position: fixed;
+      top: 82px;
+      left: 0;
+      right: 0;
+      background: #333;
+      white-space: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      z-index: 999;
+    }
+    .scroll-menu::-webkit-scrollbar {display: none;}
+    .scroll-menu a {
+      display: inline-block;
+      padding: 14px 18px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      transition: background 0.25s ease, transform 0.2s ease;
+    }
+    .scroll-menu a:hover {
+      background: red;
+      color: #111;
+      transform: scale(1.05);
+      border-radius: 6px;
+    }
+
+    /* SIDEBAR */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 1999;
+      display: none;
+    }
+    .overlay.active {display: block;}
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 90%;
+      max-width: 380px;
+      height: 100%;
+      background: #2a2a2a;
+      transition: left 0.35s ease;
+      z-index: 2000;
+      overflow-y: auto;
+      padding-bottom: 30px;
+    }
+    .sidebar.active {left: 0;}
+    .sidebar-header {
+      background: #1f1f1f;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .sidebar-header img {height: 40px;}
+    .close-btn {font-size: 38px; cursor: pointer; color: #fff;}
+    .sidebar .guide {
+      background: #3a3a3a;
+      padding: 12px;
+      font-size: 16px;
+      border-bottom: 1px solid #444;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sidebar .guide i {color: red;}
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 16px;
+    }
+    .menu-item {
+      background: #3a3a3a;
+      border-radius: 8px;
+      padding: 20px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 15px;
+      transition: transform 0.2s ease, background 0.2s ease;
+      text-decoration: none;
+      color: #fff;
+    }
+    .menu-item i {font-size: 26px;}
+    .menu-item:hover {transform: scale(1.05); background: #505050;}
+    .menu-item.whatsapp i {color: #25D366;}
+    .menu-item.telegram i {color: #229ED9;}
+    .menu-item.rtp i {color: #ff3b30;}
+    .menu-item.turnamen i {color: gold;}
+
+    /* KONTEN */
+    .content {
+      margin-top: 150px; /* ruang topbar + scroll menu */
+      padding: 20px;
+      text-align: center;
+    }
+    .qris-img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 12px;
+      border: 2px solid #ddd;
+    }
+    .btn-download {
+      display:inline-block;
+      margin-top:16px;
+      padding:12px 20px;
+      background:red;
+      color:#fff;
+      font-weight:bold;
+      border-radius:8px;
+      text-decoration:none;
+      font-size:16px;
+    }
+    .countdown {
+      border-color: gold;  
+      border-radius: 5px;
+      margin-top: 15px;
+      font-size: 20px;
+      font-weight: bold;
+      color: black;
+    }
+
+    /* NAVBAR BAWAH */
+    .navbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to right, red, gold ,red);
+      display: flex;
+      justify-content: space-around;
+      padding: 15px 0;
+      z-index: 1000;
+    }
+    .nav-item {
+      text-align: center;
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: bold;
+    }
+    .nav-item i {
+      font-size: 24px;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    /* Disclaimer */
+    .disclaimer {
+      background: #fff5f5;
+      border: 1px solid #ff9999;
+      padding: 2px;
+      border-radius: 8px;
+      font-size: 12px;
+      margin-top: 50px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    /* Popup */
+    #qrisPopup {
+      position:fixed; top:0; left:0; right:0; bottom:0;
+      background:rgba(0,0,0,0.5);
+      display:none;
+      align-items:center; justify-content:center;
+      z-index:3000;
+    }
+    #qrisPopup .popup-box {
+      background:#fff;
+      padding:20px;
+      border-radius:8px;
+      max-width:300px;
+      text-align:center;
+      font-size:15px;
+      box-shadow:0 2px 10px rgba(0,0,0,0.2);
+    }
+    #qrisPopup button {
+      background:gold;
+      color:#fff;
+      padding:8px 15px;
+      border:none;
+      border-radius:5px;
+      font-weight:bold;
+      margin-top:15px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <i class="fas fa-bars menu-icon" onclick="toggleSidebar()"></i>
+  <img src="logo.png" alt="Logo" class="logo">
+  <div style="width:40px"></div>
+</div>
+
+<!-- NAVBAR SCROLL -->
+<div class="scroll-menu">
+  <a href="sports.html">Sports</a>
+  <a href="poker.html">Poker</a>
+  <a href="casino.html">Casino</a>
+  <a href="togel.html">Togel</a>
+  <a href="slot.html">Slot</a>
+  <a href="fishing.html">Fishing</a>
+  <a href="crash.html">New Crash</a>
+  <a href="arcade.html">New Arcade</a>
+  <a href="sabung.html">Sabung A</a>
+</div>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <img src="logo.png" alt="Logo">
+    <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+  </div>
+  <div class="guide"><i class="fas fa-lightbulb"></i> Panduan Pemain</div>
+  <div class="menu-grid">
+    <a href="daftar.html" class="menu-item"><i class="fas fa-sign-out-alt"></i>Keluar</a>
+    <a href="akun.html" class="menu-item"><i class="fas fa-user"></i>Akun</a>
+    <a href="promo.html" class="menu-item"><i class="fas fa-gift"></i>Promosi</a>
+    <a href="pengumuman.html" class="menu-item"><i class="fas fa-bullhorn"></i>Pengumuman</a>
+    <a href="javascript:void(0)" class="menu-item"><i class="fas fa-desktop"></i>Versi PC</a>
+    <a href="javascript:void(0)" class="menu-item"><i class="fas fa-download"></i>Download APK</a>
+    <a href="https://wa.me/628123456789" target="_blank" class="menu-item whatsapp"><i class="fab fa-whatsapp"></i>Whatsapp</a>
+    <a href="https://t.me/jakagacor" target="_blank" class="menu-item telegram"><i class="fab fa-telegram"></i>Telegram</a>
+    <a href="rtp.html" class="menu-item rtp"><i class="fas fa-percentage"></i>RTP Slot</a>
+    <a href="turnamen.html" class="menu-item turnamen"><i class="fas fa-trophy"></i>Turnamen</a>
+  </div>
+</div>
+
+<!-- KONTEN -->
+<div class="content">
+  <h2>Scan QRIS</h2>
+  <img src="qris.jpg" alt="QRIS" class="qris-img">
+  
+  <!-- Countdown Timer -->
+  <div id="countdown" class="countdown">15:00</div>
+  
+  <br>
+  <a href="qris.jpg" download="QRIS-DANA" class="btn-download">Download QRIS</a>
+</div>
+
+<!-- Disclaimer -->
+<div class="disclaimer">
+  <b>Disclaimer</b><br>
+  1. Saat ingin melakukan deposit via Qris,Download Qris/Screensot
+ <br> 2. Masukan nominal yang sama saat ingin Deposit via  di Bank/E-Wallet </br>
+  3. Jika scan Qris melalui bank,masukan nominal untik misal 20.123 
+</div>
+
+<!-- NAVBAR BAWAH -->
+<div class="navbar">
+  <a href="ui.html" class="nav-item"><i class="fas fa-home"></i>Beranda</a>
+  <a href="dompet.html" class="nav-item"><i class="fas fa-wallet"></i>Deposit</a>
+   <a href="https://direct.lc.chat/19360282/" class="nav-item" onclick="openLiveChat()">
+  <i class="fas fa-comments"></i>Live Chat
+</a>
+  <a href="akun.html" class="nav-item"><i class="fas fa-user"></i>Akun</a>
+</div>
+
+
+
+<!-- Start of LiveChat (www.livechat.com) code -->
+<script>
+    window.__lc = window.__lc || {};
+    window.__lc.license = 19360282;
+    window.__lc.integration_name = "manual_channels";
+    window.__lc.product_name = "livechat";
+    ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
+</script>
+<noscript><a href="https://www.livechat.com/chat-with/19360282/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+<!-- End of LiveChat code -->
+
+<noscript><a href="https://www.livechat.com/chat-with/19273842/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+<!-- End of LiveChat code -->
+
+<script>
+  function openLiveChat() {
+    if (window.LiveChatWidget) {
+      LiveChatWidget.call("maximize"); // buka jendela chat
+    } else {
+      alert("LiveChat belum siap, coba beberapa detik lagi.");
+    }
+  }
+  
+  function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("active");
+    document.getElementById("overlay").classList.toggle("active");
+  }
+
+  // Countdown 15 menit
+  let timeLeft = 15 * 60; // 15 menit = 900 detik
+  const countdownEl = document.getElementById("countdown");
+
+  function updateCountdown() {
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+    countdownEl.textContent = `${minutes}:${seconds}`;
+    if (timeLeft > 0) {
+      timeLeft--;
+    } else {
+      clearInterval(timerInterval);
+      countdownEl.textContent = "00:00";
+    }
+  }
+
+  const timerInterval = setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+
+</script>
+
+</body>
+</html>
